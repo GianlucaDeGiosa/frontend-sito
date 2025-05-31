@@ -1,0 +1,203 @@
+.home-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Nuovo font */
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+
+.home-header h1 {
+  font-size: 2.5rem;
+}
+
+.home-header .highlight {
+  color: #007bff;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.home-buttons {
+  margin-top: 2rem;
+}
+
+.home-buttons button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  margin: 0 0.5rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.home-buttons .outline {
+  background: none;
+  color: #007bff;
+  border: 2px solid #007bff;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  align-items: stretch; /* allinea tutte le card alla stessa altezza */
+}
+
+.home-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* fa restare il bottone in fondo */
+  height: 100%; /* altezza piena per allineare */
+  padding: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fafafa;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.card-title-center {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.home-card .icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center; /* centra SOLO l'icona */
+}
+
+.home-card ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.home-card ul li {
+  position: relative;
+  padding-left: 1.8rem;
+  margin-bottom: 0.8rem;
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.4;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.home-card ul li::before {
+  content: "✔️";
+  position: absolute;
+  left: 0;
+  color: green;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.card-title-center {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.left-align {
+  text-align: left;
+}
+
+.home-card button {
+  padding: 0.6rem 1.4rem;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  margin-top: auto; /* forza il bottone in basso */
+  width: 100%;
+  margin-top: auto;
+}
+
+.home-card button:hover {
+  background-color: #0056b3;
+}
+
+/* i prossomi sono i css dopo i tre button*/
+.home-stats {
+  background-color: #f9f9f9;
+  text-align: center;
+  padding: 4rem 2rem;
+  margin-top: 4rem;
+}
+
+.home-stats h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.home-stats .subtitle {
+  color: #555;
+  margin-bottom: 2.5rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.stats-grid h3 {
+  font-size: 1.8rem;
+  color: #007bff;
+  margin-bottom: 0.2rem;
+}
+
+.stats-grid p {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* CTA Section */
+.home-cta {
+  background-color: #f1f1f1;
+  text-align: center;
+  padding: 3rem 2rem;
+  margin-top: 3rem;
+}
+
+.home-cta h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.home-cta .subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.home-cta-button {
+  background-color: #0a58ca;
+  color: white;
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.home-cta-button:hover {
+  background-color: #004aad;
+}

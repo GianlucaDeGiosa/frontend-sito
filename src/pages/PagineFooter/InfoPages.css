@@ -1,0 +1,49 @@
+.info-container {
+max-width: 900px;
+margin: 2rem auto;
+padding: 2rem;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+line-height: 1.7;
+color: #333;
+background-color: #ffffff;
+border-radius: 10px;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.info-container h1 {
+font-size: 2rem;
+margin-bottom: 1.5rem;
+color: #007bff;
+text-align: center;
+}
+
+.info-container h2 {
+font-size: 1.4rem;
+margin-top: 2rem;
+margin-bottom: 0.5rem;
+color: #0056b3;
+}
+
+.info-container p {
+margin-bottom: 1rem;
+font-size: 1rem;
+}
+
+.info-container ul {
+padding-left: 1.2rem;
+list-style-type: disc;
+margin-bottom: 1rem;
+}
+
+.info-container li {
+margin-bottom: 0.5rem;
+}
+
+.info-container a {
+color: #007bff;
+text-decoration: none;
+}
+
+.info-container a:hover {
+text-decoration: underline;
+}

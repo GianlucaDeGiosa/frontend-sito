@@ -1,0 +1,38 @@
+.navbar {
+  background-color: white;
+  border-bottom: 1px solid #eaeaea;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #007bff;
+}
+
+.navbar nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navbar nav a {
+  font-weight: 500;
+  color: #555;
+  transition: color 0.2s ease;
+}
+
+.navbar nav a:hover {
+  color: #007bff;
+}
+
+.no-underline {
+  text-decoration: none;
+}
