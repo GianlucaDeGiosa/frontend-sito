@@ -11,7 +11,7 @@ import Terms from "./pages/PagineFooter/terms";
 import Contatti from "./pages/PagineFooter/contatti";
 import DashboardCandidato from "./pages/Candidato/dashboard-candidato";
 import DashboardAzienda from "./pages/Azienda/dashboard-azienda";
-
+import Profilo from "./pages/Candidato/profilo";
 
 function App() {
   return (
@@ -26,6 +26,7 @@ function App() {
       <Routes>
         <Route path="/dashboard-candidato" element={<DashboardCandidato />} />
         <Route path="/dashboard-azienda" element={<DashboardAzienda />} />
+        <Route path="/profilo-candidato" element={<Profilo />} />
       </Routes>
 
       <Routes>

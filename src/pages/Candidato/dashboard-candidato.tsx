@@ -1,5 +1,6 @@
 import React from 'react';
 import './dashboard-candidato.css';
+import { Link } from "react-router-dom";
 
 const DashboardCandidato: React.FC = () => {
   return (
@@ -9,8 +10,7 @@ const DashboardCandidato: React.FC = () => {
         <nav className="nav">
           <ul>
             <li>Dashboard</li>
-            <li>Profilo</li>
-            <li>Competenze</li>
+            <li><Link to="/profilo-candidato">Profilo</Link></li>
             <li>Offerte</li>
             <li>Colloqui</li>
             <li>Feedback</li>
