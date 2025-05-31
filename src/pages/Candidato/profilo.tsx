@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./profilo.css";
 
 const Profilo = () => {
-  const [user, setUser] = useState({
+  const [user] = useState({
     nome: "Mario",
     cognome: "Rossi",
     email: "mario.rossi@example.com",
