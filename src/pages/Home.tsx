@@ -69,7 +69,7 @@ const Home = () => {
 
       {/* Sezione Call to Action */}
       <section className="home-cta">
-        <h2>Pronto a trasformare il tuo futuro professionale?</h2>
+        <h2>Pronto a trasformagggre il tuo futuro professionale?</h2>
         <p className="subtitle">Unisciti a migliaia di professionisti che hanno già trovato il lavoro dei loro sogni con BugBusters Recruit.</p>
         <button
           className="home-cta-button"
