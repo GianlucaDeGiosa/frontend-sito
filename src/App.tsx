@@ -40,17 +40,4 @@ function App() {
   );
 }
 
-const navStyle: React.CSSProperties = {
-  display: "flex",
-  gap: "1rem",
-  padding: "1rem",
-  backgroundColor: "#eaeaea"
-};
-
-const linkStyle: React.CSSProperties = {
-  textDecoration: "none",
-  color: "#007bff",
-  fontWeight: "bold"
-};
-
 export default App;
