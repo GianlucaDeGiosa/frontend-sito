@@ -1,8 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './dashboard-candidato.css';
 import { Link } from "react-router-dom";
 
 const DashboardCandidato: React.FC = () => {
+  const [userData, setUserData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  const jwt = localStorage.getItem("jwt");
+  const userId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const res = await fetch(`https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${userId}?populate=candidato`, {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        );
+        const data = await res.json();
+        setUserData(data);
+        setLoading(false);
+      } catch (err) {
+        console.error("Errore caricamento dati utente:", err);
+      }
+    };
+
+    fetchUserData();
+  }, [userId, jwt]);
+
+  if (loading) return <div>Caricamento...</div>;
+  if (!userData) return <div>Errore nel caricamento dati.</div>;
+
   return (
     <div className="admin-dashboard">
       <aside className="sidebar">
@@ -20,26 +49,26 @@ const DashboardCandidato: React.FC = () => {
 
       <main className="main-content">
         <header className="topbar">
-          <h1>Benvenuto Mario!</h1>
+          <h1>Benvenuto {userData.candidato?.Nome || "Utente"}!</h1>
           <input type="search" placeholder="Cerca..." />
         </header>
 
         <section className="cards">
           <div className="card">
             <h3>Competenze</h3>
-            <p>12/15</p>
+            <p>{userData.competenze?.length || 0}</p>
           </div>
           <div className="card">
             <h3>Colloqui Prenotati</h3>
-            <p>3</p>
+            <p>{userData.colloquis?.length || 0}</p>
           </div>
           <div className="card">
             <h3>Offerte Salvate</h3>
-            <p>6</p>
+            <p>{userData.offertes?.length || 0}</p>
           </div>
           <div className="card">
             <h3>Feedback Ricevuti</h3>
-            <p>4</p>
+            <p>{userData.feedbacks?.length || 0}</p>
           </div>
         </section>
 

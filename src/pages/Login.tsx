@@ -45,9 +45,13 @@ const Login = () => {
         },
       });
 
+
       const fullUser = await userRes.json();
       const userRole = fullUser.role?.name?.toLowerCase().trim() || "generico";
       console.log("Ruolo completo:", userRole);
+
+      localStorage.setItem("jwt", data.jwt);
+      localStorage.setItem("userId", data.user.id);
 
       // Redireziona in base al ruolo
       switch (userRole) {
@@ -66,6 +70,7 @@ const Login = () => {
       setError("Errore di connessione al server");
       alert("Errore di connessione al server");
     }
+    
   };
 
   return (
