@@ -38,11 +38,11 @@ const DashboardCandidato: React.FC = () => {
         <h2 className="logo">BugBusters</h2>
         <nav className="nav">
           <ul>
-            <li>Dashboard</li>
-            <li><Link to="/profilo-candidato">Profilo</Link></li>
-            <li>Offerte</li>
-            <li>Colloqui</li>
-            <li>Feedback</li>
+            <li><Link to="/dashboard-candidato">Dashboard</Link></li>
+            <li><Link to="/dashboard-candidato/profilo-candidato">Profilo</Link></li>
+            <li><Link to="/dashboard-candidato/offerte">Offerte</Link></li>
+            <li><Link to="/dashboard-candidato/colloqui"></Link>Colloqui</li>
+            <li><Link to="/dashboard-candidato/feedback"></Link>Feedback</li>
           </ul>
         </nav>
       </aside>
