@@ -22,7 +22,7 @@ const ProfiloCandidato = () => {
           }
         );
         const data = await res.json();
-        
+
         if (data.candidato?.CurriculumVitae) {
           setCurriculum(data.candidato.CurriculumVitae);
         }

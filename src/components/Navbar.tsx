@@ -28,10 +28,10 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            {ruolo == "candidato" && (
+            {ruolo === "candidato" && (
               <Link to="/dashboard-candidato" className="no-underline">Dashboard</Link>
             )}
-            {ruolo == "azienda" && (
+            {ruolo === "azienda" && (
               <Link to="/dashboard-azienda" className="no-underline">Dashboard</Link>
             )}
             <button className="logout-btn" onClick={handleLogout}>Logout</button>

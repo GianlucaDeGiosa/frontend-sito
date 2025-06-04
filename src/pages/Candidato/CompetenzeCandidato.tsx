@@ -1,5 +1,5 @@
 // CompetenzeCandidato.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "./CompetenzeCandidato.css";
 
 
@@ -18,11 +18,7 @@ const CompetenzeCandidato: React.FC = () => {
     const [editingId, setEditingId] = useState<number | null>(null);
     const candidatoId = localStorage.getItem("candidatoId");
 
-    useEffect(() => {
-        fetchCompetenze();
-    }, []);
-
-    const fetchCompetenze = async () => {
+    const fetchCompetenze = useCallback(async () => {
         try {
             const res = await fetch(
                 `https://lovable-horses-1f1c111d86.strapiapp.com/api/competenzas?filters[candidato][documentId][$eq]=${candidatoId}&populate=*`,
@@ -48,7 +44,11 @@ const CompetenzeCandidato: React.FC = () => {
         } catch (err) {
             console.error("Errore nel recupero delle competenze:", err);
         }
-    };
+    }, [candidatoId]);
+
+    useEffect(() => {
+        fetchCompetenze();
+    }, [fetchCompetenze]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
