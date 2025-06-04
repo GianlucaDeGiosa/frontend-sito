@@ -40,7 +40,6 @@ const CompetenzeCandidato: React.FC = () => {
                     )
                     : []
             );
-            console.log(competenze);
         } catch (err) {
             console.error("Errore nel recupero delle competenze:", err);
         }
