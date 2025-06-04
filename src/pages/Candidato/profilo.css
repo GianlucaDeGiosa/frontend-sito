@@ -1,106 +1,55 @@
-.profilo-container {
-  max-width: 700px;
-  margin: 3rem auto;
-  padding: 1.5rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #222;
-}
-
-.profilo-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.profilo-header h1 {
-  font-size: 2.8rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: #007bff;
-  text-transform: uppercase;
-}
-
-.profilo-subtitle {
-  color: #555;
-  font-size: 1.2rem;
-  margin-top: 0.5rem;
-}
-
-/* Card stile box con ombra e bordi */
-.profilo-card {
-  background-color: #222;  /* sfondo scuro */
-  color: #eee;
+.profilo-candidato {
+  width: auto;
+  margin: 2rem auto;
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-  display: flex;
-  flex-direction: column;
-  gap: 1.8rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-size: 0.95rem; /* rimpicciolito */
 }
 
-/* Top parte: immagine + nome e ruolo */
-.profilo-top {
+.profilo-candidato h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: #007bff;
+}
+
+.profilo-dettaglio {
+  font-size: 0.95rem; /* rimpicciolito */
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e0e0e0;
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  justify-content: space-between;
 }
 
-.profilo-image {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #007bff;
-  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.6);
+.profilo-dettaglio strong {
+  color: #0056b3;
+  margin-right: 0.5rem;
 }
 
-.profilo-nome-ruolo h2 {
-  margin: 0;
-  font-size: 1.9rem;
+.telefono-input {
+  padding: 0.3rem 0.5rem;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 0.5rem;
 }
 
-.profilo-ruolo {
-  margin-top: 0.3rem;
-  color: #69a1ff;
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-
-/* Lista dati */
-.profilo-info {
-  list-style: none;
-  padding-left: 0;
-  font-size: 1.1rem;
-  line-height: 1.5;
-  border-top: 1px solid #444;
-  padding-top: 1rem;
-}
-
-.profilo-info li {
-  padding: 0.6rem 0;
-  border-bottom: 1px solid #333;
-}
-
-.profilo-info li strong {
-  width: 100px;
-  display: inline-block;
-  color: #8ab4f8;
-}
-
-/* Bottone */
-.profilo-button {
-  margin-top: 1.5rem;
-  padding: 0.7rem 1.8rem;
-  font-size: 1.05rem;
-  border-radius: 8px;
-  border: none;
+.salva-btn,
+.modifica-btn {
   background-color: #007bff;
   color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
   cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-  align-self: flex-start;
+  font-size: 0.85rem;
 }
 
-.profilo-button:hover {
+.salva-btn:hover,
+.modifica-btn:hover {
   background-color: #0056b3;
 }

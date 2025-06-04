@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './dashboard-azienda.css';
 import { Link } from "react-router-dom";
 
-const DashboardCandidato: React.FC = () => {
+const DashboardAzienda: React.FC = () => {
   const [userData, setUserData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -13,14 +13,18 @@ const DashboardCandidato: React.FC = () => {
     const fetchUserData = async () => {
       try {
         const res = await fetch(`https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${userId}?populate=azienda`, {
-            headers: {
-              Authorization: `Bearer ${jwt}`,
-            },
-          }
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
         );
         const data = await res.json();
         setUserData(data);
         setLoading(false);
+        if (!localStorage.getItem("aziendaId")) {
+          localStorage.setItem("aziendaId", data.azienda.documentId);
+        }
+        localStorage.setItem("ruolo", "azienda");
       } catch (err) {
         console.error("Errore caricamento dati utente:", err);
       }
@@ -35,15 +39,16 @@ const DashboardCandidato: React.FC = () => {
   return (
     <div className="admin-dashboard">
       <aside className="sidebar">
-        <h2 className="logo">BugBusters</h2>
+        <h2 className="logo">{userData.azienda?.NomeAzienda || "Utente"}</h2>
         <nav className="nav">
           <ul>
-            <li><Link to="/dashboard-candidato">Dashboard</Link></li>
-            <li><Link to="/dashboard-candidato/profilo-candidato">Profilo</Link></li>
-            <li><Link to="/dashboard-candidato/offerte">Offerte</Link></li>
-            <li><Link to="/dashboard-candidato/colloqui"></Link>Colloqui</li>
-            <li><Link to="/dashboard-candidato/feedback"></Link>Feedback</li>
+            <li><Link className="no-style-link" to="/dashboard-azienda">Dashboard</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-azienda/profilo-azienda">Profilo</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-azienda/offerte">Offerte</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-azienda/colloqui">Colloqui</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-azienda/feedback">Feedback</Link></li>
           </ul>
+
         </nav>
       </aside>
 
@@ -54,7 +59,7 @@ const DashboardCandidato: React.FC = () => {
         </header>
 
         <section className="cards">
-          
+
         </section>
 
         <section className="analytics">
@@ -73,4 +78,4 @@ const DashboardCandidato: React.FC = () => {
   );
 };
 
-export default DashboardCandidato;
+export default DashboardAzienda;

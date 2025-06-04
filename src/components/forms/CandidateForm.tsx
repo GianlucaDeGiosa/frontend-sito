@@ -45,10 +45,10 @@ const CandidateForm = () => {
       console.log("Candidato registrato con successo:", registerData);
 
       const userId = registerData.user.id;
-      const jwt = "a0f596a0d1ea453caebe947e3bd0ae8a098da7713c1d14a335ec7ddcfd8a732d48d75bbd236f12ecd82ecf813b9765e26a1b60d5d7a6413215310b917e2bcf2b2fcb726b6f0ffc05f53be2168fdcaa846f68e3ab31ac72bf9789ed79143e584a1c9d9687f28793721b67426846d679b0bba62b534ad48e7027376c70ea008154";
+      const jwt = "b5632dd6d92dc4e479b3ac08cc274838e51f3a615ef860826377250ca6eed93472c36c340f0a141655ac185f2fe1ba79ae5191c24202e333cd5ca1c22e5fb89bd0d401b31d7a666281b2174c0b1253388236e58d50e1b6328042c5d8a87fe55d129448d5480bff690fbd0b2123745dc4e95caef908cb5311797e70634a61b3ba";
 
       localStorage.setItem("jwt", registerData.jwt);
-      localStorage.setItem("user", JSON.stringify(registerData.user));
+      localStorage.setItem("userId", registerData.user.id);
 
       // Aggiorna il ruolo dell’utente
       const roleUpdateRes = await fetch(`https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${userId}`, {

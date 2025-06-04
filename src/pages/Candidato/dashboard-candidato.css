@@ -111,3 +111,8 @@
   color: #6b7280;
   font-style: italic;
 }
+
+.no-style-link {
+  text-decoration: none; /* rimuove la sottolineatura */
+  color: inherit; /* eredita il colore del testo dal genitore */
+}

@@ -4,18 +4,6 @@
 }
 
 /* ASIDE: stile identico a DashboardCandidato */
-.dashboard-candidato-aside {
-  top: 0;
-  height: 100vh;
-  flex: 0 0 240px;
-  background-color: #1f2937;
-  color: #ffffff;
-  padding: 1.5rem ;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-}
-
 .aside-header {
   margin-bottom: 2rem;
   text-align: center;
@@ -139,4 +127,9 @@
 
 .upload-box input[type="file"] {
   margin-bottom: 1rem;
+}
+
+.no-style-link {
+  text-decoration: none; /* rimuove la sottolineatura */
+  color: inherit; /* eredita il colore del testo dal genitore */
 }

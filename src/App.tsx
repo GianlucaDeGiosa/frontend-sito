@@ -11,7 +11,10 @@ import Terms from "./pages/PagineFooter/terms";
 import Contatti from "./pages/PagineFooter/contatti";
 import DashboardCandidato from "./pages/Candidato/dashboard-candidato";
 import DashboardAzienda from "./pages/Azienda/dashboard-azienda";
-import Profilo from "./pages/Candidato/profilo";
+import ProfiloCandidato from "./pages/Candidato/profilo";
+import ProfiloAzienda from "./pages/Azienda/profilo";
+import CompetenzeCandidato from "./pages/Candidato/CompetenzeCandidato";
+
 
 function App() {
   return (
@@ -26,7 +29,9 @@ function App() {
       <Routes>
         <Route path="/dashboard-candidato" element={<DashboardCandidato />} />
         <Route path="/dashboard-azienda" element={<DashboardAzienda />} />
-        <Route path="/profilo-candidato" element={<Profilo />} />
+        <Route path="/dashboard-candidato/profilo-candidato" element={<ProfiloCandidato />} />
+        <Route path="/dashboard-azienda/profilo-azienda" element={<ProfiloAzienda />} />
+        <Route path="/dashboard-candidato/competenze-candidato" element={<CompetenzeCandidato />} />
       </Routes>
 
       <Routes>

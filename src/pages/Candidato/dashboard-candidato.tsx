@@ -13,17 +13,22 @@ const DashboardCandidato: React.FC = () => {
     const fetchUserData = async () => {
       try {
         const res = await fetch(`https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${userId}?populate=candidato`, {
-            headers: {
-              Authorization: `Bearer ${jwt}`,
-            },
-          }
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
         );
         const data = await res.json();
         setUserData(data);
         setLoading(false);
+        if (!localStorage.getItem("candidatoId")) {
+          localStorage.setItem("candidatoId", data.candidato.documentId);
+        }
+        localStorage.setItem("ruolo", "candidato");
       } catch (err) {
         console.error("Errore caricamento dati utente:", err);
       }
+
     };
 
     fetchUserData();
@@ -38,11 +43,12 @@ const DashboardCandidato: React.FC = () => {
         <h2 className="logo">BugBusters</h2>
         <nav className="nav">
           <ul>
-            <li><Link to="/dashboard-candidato">Dashboard</Link></li>
-            <li><Link to="/dashboard-candidato/profilo-candidato">Profilo</Link></li>
-            <li><Link to="/dashboard-candidato/offerte">Offerte</Link></li>
-            <li><Link to="/dashboard-candidato/colloqui"></Link>Colloqui</li>
-            <li><Link to="/dashboard-candidato/feedback"></Link>Feedback</li>
+            <li><Link className="no-style-link" to="/dashboard-candidato">Dashboard</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/profilo-candidato">Profilo</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/competenze-candidato">Competenze</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/offerte">Offerte Lavorative</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/colloqui">Colloqui</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/feedback">Feedback Ricevuti</Link></li>
           </ul>
         </nav>
       </aside>

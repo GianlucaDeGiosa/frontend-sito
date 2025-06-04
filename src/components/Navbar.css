@@ -36,3 +36,20 @@
 .no-underline {
   text-decoration: none;
 }
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: #555;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-family: inherit;
+  padding: 0;
+}
+
+.logout-btn:hover {
+  color: #007bff;
+}
