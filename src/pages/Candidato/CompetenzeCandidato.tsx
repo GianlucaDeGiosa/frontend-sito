@@ -16,8 +16,6 @@ const CompetenzeCandidato: React.FC = () => {
     const [competenze, setCompetenze] = useState<Competenza[]>([]);
     const [form, setForm] = useState({ Nome: "", Categoria: "", Livello: "" });
     const [editingId, setEditingId] = useState<number | null>(null);
-    const jwt = localStorage.getItem("jwt");
-    const userId = localStorage.getItem("userId");
     const candidatoId = localStorage.getItem("candidatoId");
 
     useEffect(() => {
