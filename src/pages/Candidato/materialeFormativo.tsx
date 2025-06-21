@@ -46,7 +46,7 @@ const fetchAziende = React.useCallback(async () => {
     }
   }, [jwt]);
 
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     fetchAziende();
     fetchMateriali();
