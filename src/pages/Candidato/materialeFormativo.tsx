@@ -9,7 +9,7 @@ const VisualizzaMaterialeFormativo = () => {
 
   const jwt = localStorage.getItem("jwt");
 
-  const fetchMateriali = async () => {
+const fetchMateriali = React.useCallback(async () => {
     try {
       const res = await fetch(
         `https://lovable-horses-1f1c111d86.strapiapp.com/api/materiale-formativos?filters[Pubblico][$eq]=true&populate=File`,
@@ -26,9 +26,10 @@ const VisualizzaMaterialeFormativo = () => {
       console.error("Errore fetch materiali:", err);
       setMessaggio("Errore durante il caricamento dei materiali.");
     }
-  };
+  }, [jwt]);
 
-  const fetchAziende = async () => {
+
+const fetchAziende = React.useCallback(async () => {
     try {
       const res = await fetch(
         `https://lovable-horses-1f1c111d86.strapiapp.com/api/aziendas`,
@@ -43,14 +44,15 @@ const VisualizzaMaterialeFormativo = () => {
     } catch (err) {
       console.error("Errore fetch aziende:", err);
     }
-  };
+  }, [jwt]);
+
 
   useEffect(() => {
     fetchAziende();
     fetchMateriali();
     const salvati = JSON.parse(localStorage.getItem("preferitiMateriali") || "[]");
     setPreferiti(salvati);
-  }, []);
+  }, [fetchAziende, fetchMateriali]);
 
   const togglePreferito = (id: number) => {
     let nuovi;
