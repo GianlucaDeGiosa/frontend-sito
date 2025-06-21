@@ -55,7 +55,7 @@ const MaterialeFormativo = () => {
         } finally {
             setLoadingMateriali(false);
         }
-    }, [jwt]);
+    }, [jwt, aziendaId]);
 
 
     const handleSubmit = async (e: React.FormEvent) => {
