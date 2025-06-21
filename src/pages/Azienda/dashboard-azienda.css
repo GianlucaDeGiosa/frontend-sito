@@ -130,6 +130,15 @@
 }
 
 .no-style-link {
-  text-decoration: none; /* rimuove la sottolineatura */
-  color: inherit; /* eredita il colore del testo dal genitore */
+  text-decoration: none;
+  /* rimuove la sottolineatura */
+  color: inherit;
+  /* eredita il colore del testo dal genitore */
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #007bff;
 }

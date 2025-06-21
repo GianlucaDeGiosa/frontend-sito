@@ -14,12 +14,17 @@ import DashboardAzienda from "./pages/Azienda/dashboard-azienda";
 import ProfiloCandidato from "./pages/Candidato/profilo";
 import ProfiloAzienda from "./pages/Azienda/profilo";
 import CompetenzeCandidato from "./pages/Candidato/CompetenzeCandidato";
+import OfferteAzienda from "./pages/Azienda/offerte";
+import ColloquiAzienda from "./pages/Azienda/colloqui";
+import Preferenze from "./pages/Candidato/attitudiniPreferenze";
+import MaterialeFormativoCandidato from "./pages/Candidato/materialeFormativo";
+import MaterialeFormativoAzienda from "./pages/Azienda/materialeFormativo";
 
 
 function App() {
   return (
     <Router>
-      <Navbar/>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
@@ -32,6 +37,11 @@ function App() {
         <Route path="/dashboard-candidato/profilo-candidato" element={<ProfiloCandidato />} />
         <Route path="/dashboard-azienda/profilo-azienda" element={<ProfiloAzienda />} />
         <Route path="/dashboard-candidato/competenze-candidato" element={<CompetenzeCandidato />} />
+        <Route path="/dashboard-candidato/preferenze" element={<Preferenze />} />
+        <Route path="/dashboard-candidato/materiale-formativo" element={<MaterialeFormativoCandidato />} />
+        <Route path="/dashboard-azienda/offerte" element={<OfferteAzienda />} />
+        <Route path="/dashboard-azienda/colloqui" element={<ColloquiAzienda />} />
+        <Route path="/dashboard-azienda/materiale-formativo" element={<MaterialeFormativoAzienda />} />
       </Routes>
 
       <Routes>
@@ -40,7 +50,7 @@ function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/contatti" element={<Contatti />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </Router>
   );
 }

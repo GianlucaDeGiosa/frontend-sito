@@ -1,0 +1,175 @@
+.admin-profilo {
+    display: flex;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+div {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.aside-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.aside-title {
+    font-size: 1.25rem;
+    color: #ffffff;
+    margin: 0;
+}
+
+.aside-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.aside-nav li {
+    margin-bottom: 1rem;
+}
+
+.aside-link {
+    text-decoration: none;
+    color: #adb5bd;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    display: block;
+    border-radius: 4px;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.aside-link:hover {
+    background-color: #495057;
+    color: #ffffff;
+}
+
+.aside-link.active {
+    background-color: #495057;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: #007bff;
+}
+
+.nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.nav li {
+    margin-bottom: 1rem;
+}
+
+.no-style-link {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+}
+
+.no-style-link.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    background-color: #f9f9f9;
+}
+
+.profilo-azienda {
+    width: 70%;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin: 2rem auto;
+}
+
+.profilo-azienda h2 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.profilo-dettaglio {
+    flex: 1;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.profilo-dettaglio strong {
+    color: #0056b3;
+}
+
+.profilo-riga {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.logo-img {
+    max-width: 120px;
+    height: auto;
+    margin-top: 8px;
+    border-radius: 8px;
+}
+
+/* grid cards */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.primary-button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.primary-button:hover {
+    background-color: #0056b3;
+}
+
+fieldset {
+    border: 1px solid #ccc;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+fieldset legend {
+    padding: 0 0.5rem;
+    font-weight: bold;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+    box-sizing: border-box;
+}

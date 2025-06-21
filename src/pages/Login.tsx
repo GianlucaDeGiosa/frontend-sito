@@ -36,7 +36,7 @@ const Login = () => {
 
       console.log("Login riuscito:", data);
 
-      const jwt = "b5632dd6d92dc4e479b3ac08cc274838e51f3a615ef860826377250ca6eed93472c36c340f0a141655ac185f2fe1ba79ae5191c24202e333cd5ca1c22e5fb89bd0d401b31d7a666281b2174c0b1253388236e58d50e1b6328042c5d8a87fe55d129448d5480bff690fbd0b2123745dc4e95caef908cb5311797e70634a61b3ba";
+      const jwt = "dfc844b9c03479825c87ef987efcaa549f4a21f6308e35534700be4d86c6d12b374548cfa165ffe8757d25d9c67b137f7fb926f4f7da80eadc5fa220d18bcfaa8c4d2880bd6d61552aa49cafcdb572f129ee2b7b0b171eff206a09e6f714978c46d5aa055d995aba99585d160f548acb79d88f8069eb9249f2a43d5a3b6258ef";
 
       // Fai una seconda richiesta per recuperare l'utente completo, incluso il ruolo
       const userRes = await fetch(`https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${data.user.id}?populate=role`, {

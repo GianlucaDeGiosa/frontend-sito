@@ -39,11 +39,12 @@ const DashboardAzienda: React.FC = () => {
   return (
     <div className="admin-dashboard">
       <aside className="sidebar">
-        <h2 className="logo">{userData.azienda?.NomeAzienda || "Utente"}</h2>
+        <h2 className="logo" style={{ margin: 0 }}>{userData.azienda?.NomeAzienda || "Utente"}</h2>
         <nav className="nav">
           <ul>
             <li><Link className="no-style-link" to="/dashboard-azienda">Dashboard</Link></li>
             <li><Link className="no-style-link" to="/dashboard-azienda/profilo-azienda">Profilo</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-azienda/materiale-formativo">Materiale Formativi Aziendali</Link></li>
             <li><Link className="no-style-link" to="/dashboard-azienda/offerte">Offerte</Link></li>
             <li><Link className="no-style-link" to="/dashboard-azienda/colloqui">Colloqui</Link></li>
             <li><Link className="no-style-link" to="/dashboard-azienda/feedback">Feedback</Link></li>

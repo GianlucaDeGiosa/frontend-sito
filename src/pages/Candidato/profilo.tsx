@@ -7,6 +7,7 @@ const ProfiloCandidato = () => {
   const [telefono, setTelefono] = useState<string>("");
   const [editing, setEditing] = useState(false);
   const [curriculum, setCurriculum] = useState<any[]>([]);
+  const [userEmail, setUserEmail] = useState<string>("");
   const jwt = localStorage.getItem("jwt");
   const documentId = localStorage.getItem("userId");
 
@@ -22,6 +23,8 @@ const ProfiloCandidato = () => {
           }
         );
         const data = await res.json();
+
+        setUserEmail(data.email || "");
 
         if (data.candidato?.CurriculumVitae) {
           setCurriculum(data.candidato.CurriculumVitae);
@@ -49,7 +52,7 @@ const ProfiloCandidato = () => {
 
     try {
       const res = await fetch(
-        `https://lovable-horses-1f1c111d86.strapiapp.com/api/candidatoes/${candidato.documentId}`,
+        `https://lovable-horses-1f1c111d86.strapiapp.com/api/candidatoes/${candidato.id}`,
         {
           method: "PUT",
           headers: {
@@ -79,13 +82,30 @@ const ProfiloCandidato = () => {
   const handleUploadCurriculum = async (file: File) => {
     if (!file || !candidato?.id) return;
 
-    const formData = new FormData();
-    formData.append("files", file);
-    formData.append("ref", "api::candidato.candidato");
-    formData.append("refId", candidato.documentId);
-    formData.append("field", "CurriculumVitae");
-
     try {
+      // ✅ 1. Se esiste un CV precedente, lo eliminiamo
+      if (curriculum.length > 0) {
+        const deletePromises = curriculum.map((file) =>
+          fetch(
+            `https://lovable-horses-1f1c111d86.strapiapp.com/api/upload/files/${file.id}`,
+            {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+              },
+            }
+          )
+        );
+        await Promise.all(deletePromises);
+      }
+
+      // ✅ 2. Carichiamo il nuovo file
+      const formData = new FormData();
+      formData.append("files", file);
+      formData.append("ref", "api::candidato.candidato");
+      formData.append("refId", candidato.id);
+      formData.append("field", "CurriculumVitae");
+
       const res = await fetch(
         "https://lovable-horses-1f1c111d86.strapiapp.com/api/upload",
         {
@@ -96,9 +116,10 @@ const ProfiloCandidato = () => {
           body: formData,
         }
       );
+
       if (res.ok) {
         const uploaded = await res.json();
-        setCurriculum((prev) => [...prev, ...uploaded]);
+        setCurriculum(uploaded); // ✅ Sostituiamo, non aggiungiamo
         alert("Curriculum caricato con successo.");
       } else {
         console.error("Errore nell’upload:", await res.text());
@@ -108,9 +129,8 @@ const ProfiloCandidato = () => {
     }
   };
 
-  if (!candidato) return <div className="profilo-candidato">Caricamento...</div>;
 
-  const userEmail = JSON.parse(localStorage.getItem("user") || "{}").email;
+  if (!candidato) return <div className="profilo-candidato">Caricamento...</div>;
 
   return (
     <div className="admin-dashboard">
@@ -120,9 +140,12 @@ const ProfiloCandidato = () => {
           <ul>
             <li><Link className="no-style-link" to="/dashboard-candidato">Dashboard</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/profilo-candidato">Profilo</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/offerte">Offerte</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/competenze-candidato">Competenze</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/preferenze">Attitudini e Preferenze</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/offerte">Offerte Lavorative</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/colloqui">Colloqui</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/feedback">Feedback</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/feedback">Feedback Ricevuti</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/materiale-formativo">Materiali Formativi</Link></li>
           </ul>
         </nav>
       </aside>
@@ -135,7 +158,7 @@ const ProfiloCandidato = () => {
           <div className="profilo-dettaglio"><strong>Data di Nascita:</strong> {candidato.DataNascita}</div>
           <div className="profilo-dettaglio"><strong>Email:</strong> {userEmail}</div>
           <div className="profilo-dettaglio">
-            <strong>Telefono:</strong>{candidato.NumeroTelefono}
+            <strong>Telefono:</strong>
             {editing ? (
               <>
                 <input
@@ -168,7 +191,7 @@ const ProfiloCandidato = () => {
               <ul>
                 {curriculum.map((file) => (
                   <li key={file.id}>
-                    <a href={file.url.startsWith("http") ? file.url : `https://lovable-horses-1f1c111d86.strapiapp.com${file.url}`} target="_blank" rel="noopener noreferrer">
+                    <a href={file.url.startsWith("http") ? file.url : `${file.url}`} target="_blank" rel="noopener noreferrer">
                       {file.name}
                     </a>
                   </li>

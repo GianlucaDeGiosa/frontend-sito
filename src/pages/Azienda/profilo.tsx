@@ -38,48 +38,48 @@ const ProfiloAzienda: React.FC = () => {
 
   return (
     <div className="admin-profilo">
-    <aside className="sidebar">
+      <aside className="sidebar">
         <h2 className="logo">{userData.azienda?.NomeAzienda || "Utente"}</h2>
         <nav className="nav">
           <ul>
-  <li><Link className="no-style-link" to="/dashboard-azienda">Dashboard</Link></li>
-  <li><Link className="no-style-link" to="/dashboard-azienda/profilo-azienda">Profilo</Link></li>
-  <li><Link className="no-style-link" to="/dashboard-azienda/offerte">Offerte</Link></li>
-  <li><Link className="no-style-link" to="/dashboard-azienda/colloqui">Colloqui</Link></li>
-  <li><Link className="no-style-link" to="/dashboard-azienda/feedback">Feedback</Link></li>
-</ul>
+            <li><Link className="no-style-link" to="/dashboard-azienda">Dashboard</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-azienda/profilo-azienda">Profilo</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-azienda/offerte">Offerte</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-azienda/colloqui">Colloqui</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-azienda/feedback">Feedback</Link></li>
+          </ul>
 
         </nav>
       </aside>
-    <main className="profilo-azienda">
-  <h2>Il tuo profilo</h2>
+      <main className="profilo-azienda">
+        <h2>Il tuo profilo</h2>
 
-    <div className="profilo-dettaglio"><strong>Logo:</strong><br />
-      {azienda?.Logo ? (
-        <img src={azienda.Logo} alt="Logo Azienda" className="logo-img" />
-      ) : "Non caricato"}
-    </div>
+        <div className="profilo-dettaglio"><strong>Logo:</strong><br />
+          {azienda?.Logo ? (
+            <img src={azienda.Logo} alt="Logo Azienda" className="logo-img" />
+          ) : "Non caricato"}
+        </div>
 
-  <div className="profilo-riga">
-    <div className="profilo-dettaglio"><strong>Nome Azienda:</strong> {azienda?.NomeAzienda || "Non specificato"}</div>
-    <div className="profilo-dettaglio"><strong>Email:</strong> {userData.email}</div>
-  </div>
+        <div className="profilo-riga">
+          <div className="profilo-dettaglio"><strong>Nome Azienda:</strong> {azienda?.NomeAzienda || "Non specificato"}</div>
+          <div className="profilo-dettaglio"><strong>Email:</strong> {userData.email}</div>
+        </div>
 
-  <div className="profilo-riga">
-    <div className="profilo-dettaglio"><strong>Settore:</strong> {azienda?.Settore || "Non specificato"}</div>
-    <div className="profilo-dettaglio"><strong>Partita IVA:</strong> {azienda?.PartitaIva || "Non specificata"}</div>
-  </div>
+        <div className="profilo-riga">
+          <div className="profilo-dettaglio"><strong>Settore:</strong> {azienda?.Settore || "Non specificato"}</div>
+          <div className="profilo-dettaglio"><strong>Partita IVA:</strong> {azienda?.PartitaIva || "Non specificata"}</div>
+        </div>
 
-  <div className="profilo-riga">
-    <div className="profilo-dettaglio"><strong>Sede Legale:</strong> {azienda?.SedeLegale || "Non specificata"}</div>
-    <div className="profilo-dettaglio"></div>
-  </div>
+        <div className="profilo-riga">
+          <div className="profilo-dettaglio"><strong>Sede Legale:</strong> {azienda?.SedeLegale || "Non specificata"}</div>
+          <div className="profilo-dettaglio"></div>
+        </div>
 
-    <div className="profilo-dettaglio"><strong>Cultura Aziendale:</strong> {azienda?.Cultura || "Non specificata"}</div>
-    <div className="profilo-dettaglio"><strong>Descrizione:</strong> {azienda?.Descrizione || "Non specificata"}</div>
- 
+        <div className="profilo-dettaglio"><strong>Cultura Aziendale:</strong> {azienda?.Cultura || "Non specificata"}</div>
+        <div className="profilo-dettaglio"><strong>Descrizione:</strong> {azienda?.Descrizione || "Non specificata"}</div>
 
-</main>
+
+      </main>
     </div>
   );
 };
