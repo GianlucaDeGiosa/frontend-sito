@@ -22,7 +22,7 @@ const MaterialeFormativo = () => {
         }
     };
 
-    const fetchUserData = async () => {
+    const fetchUserData = React.useCallback(async () => {
         if (!jwt) return;
         try {
             const res = await fetch(`https://lovable-horses-1f1c111d86.strapiapp.com/api/users/me?populate=azienda`, {
@@ -35,9 +35,9 @@ const MaterialeFormativo = () => {
         } catch (err) {
             console.error("Errore nel recupero user data:", err);
         }
-    };
+    }, [jwt]);
 
-    const fetchMateriali = async () => {
+    const fetchMateriali = React.useCallback(async () => {
         if (!aziendaId) return;
         try {
             const res = await fetch(
@@ -55,7 +55,8 @@ const MaterialeFormativo = () => {
         } finally {
             setLoadingMateriali(false);
         }
-    };
+    }, [jwt]);
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -156,7 +157,7 @@ const MaterialeFormativo = () => {
     useEffect(() => {
         fetchUserData();
         fetchMateriali();
-    }, []);
+    }, [fetchUserData, fetchMateriali]);
 
     return (
         <div className="materiale-formativo">
