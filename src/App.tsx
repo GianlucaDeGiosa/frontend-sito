@@ -21,7 +21,7 @@ import MaterialeFormativoCandidato from "./pages/Candidato/materialeFormativo";
 import MaterialeFormativoAzienda from "./pages/Azienda/materialeFormativo";
 import OfferteSuggerite from "./pages/Candidato/OfferteSuggerite";
 import FeedbackRicevuti from "./pages/Candidato/feedback";
-import FeedbackInviati from "./pages/Azienda/feedbackCV";
+// import FeedbackInviati from "./pages/Azienda/feedbackCV";
 import ColloquiRicevuti from "./pages/Candidato/colloqui";
 import CandidatureRicevute from "./pages/Azienda/candidatureRicevute";
 
