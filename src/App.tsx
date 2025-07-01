@@ -19,7 +19,11 @@ import ColloquiAzienda from "./pages/Azienda/colloqui";
 import Preferenze from "./pages/Candidato/attitudiniPreferenze";
 import MaterialeFormativoCandidato from "./pages/Candidato/materialeFormativo";
 import MaterialeFormativoAzienda from "./pages/Azienda/materialeFormativo";
-
+import OfferteSuggerite from "./pages/Candidato/OfferteSuggerite";
+import FeedbackRicevuti from "./pages/Candidato/feedback";
+import FeedbackInviati from "./pages/Azienda/feedbackCV";
+import ColloquiRicevuti from "./pages/Candidato/colloqui";
+import CandidatureRicevute from "./pages/Azienda/candidatureRicevute";
 
 function App() {
   return (
@@ -34,14 +38,20 @@ function App() {
       <Routes>
         <Route path="/dashboard-candidato" element={<DashboardCandidato />} />
         <Route path="/dashboard-azienda" element={<DashboardAzienda />} />
+
         <Route path="/dashboard-candidato/profilo-candidato" element={<ProfiloCandidato />} />
-        <Route path="/dashboard-azienda/profilo-azienda" element={<ProfiloAzienda />} />
         <Route path="/dashboard-candidato/competenze-candidato" element={<CompetenzeCandidato />} />
         <Route path="/dashboard-candidato/preferenze" element={<Preferenze />} />
         <Route path="/dashboard-candidato/materiale-formativo" element={<MaterialeFormativoCandidato />} />
+        <Route path="/dashboard-candidato/offerte-suggerite" element={<OfferteSuggerite />} />
+        <Route path="/dashboard-candidato/feedback" element={<FeedbackRicevuti />} />
+        <Route path="/dashboard-candidato/colloqui" element={<ColloquiRicevuti />} />
+        
+        <Route path="/dashboard-azienda/profilo-azienda" element={<ProfiloAzienda />} />
         <Route path="/dashboard-azienda/offerte" element={<OfferteAzienda />} />
         <Route path="/dashboard-azienda/colloqui" element={<ColloquiAzienda />} />
         <Route path="/dashboard-azienda/materiale-formativo" element={<MaterialeFormativoAzienda />} />
+        <Route path="/dashboard-azienda/candidature-ricevute" element={<CandidatureRicevute />} />
       </Routes>
 
       <Routes>

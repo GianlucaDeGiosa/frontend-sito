@@ -1,0 +1,150 @@
+.materiale-formativo {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #343a40;
+  color: white;
+  padding: 2rem 1rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.nav li {
+  margin-bottom: 1rem;
+}
+
+.no-style-link {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+}
+
+.no-style-link:hover,
+.no-style-link.active {
+  font-weight: bold;
+  text-decoration: underline;
+  color: #f8f9fa;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #f9f9f9;
+}
+
+.materiale-form {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.materiale-form h1,
+.materiale-form h2 {
+  color: #007bff;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.materiale-form input[type="text"],
+.materiale-form textarea,
+.materiale-form input[type="file"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 0.25rem;
+}
+
+.materiale-form button {
+  background-color: #007bff;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.materiale-form button:hover {
+  background-color: #0056b3;
+}
+
+.materiali-lista {
+  margin-top: 2rem;
+}
+
+.materiale-item {
+  background-color: #f1f3f5;
+  border-left: 5px solid #007bff;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.materiali-lista {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .materiali-lista {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.materiale-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.materiale-card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.materiale-card h3 {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  color: #111827;
+}
+
+.materiale-card p {
+  color: #374151;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.materiale-card a {
+  color: #2563eb;
+  text-decoration: underline;
+  font-weight: 500;
+  display: inline-block;
+  margin-top: 0.25rem;
+}
+
+.materiale-card .text-sm {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}

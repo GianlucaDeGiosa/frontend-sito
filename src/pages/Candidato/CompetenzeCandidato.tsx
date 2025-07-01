@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./CompetenzeCandidato.css";
 
 const CompetenzeCandidato = () => {
@@ -17,7 +18,8 @@ const CompetenzeCandidato = () => {
         const fetchDatiCandidato = async () => {
             try {
                 const res = await fetch(
-                    `https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${documentId}?populate[candidato][populate]=competenzas`,
+                    //`https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${documentId}?populate[candidato][populate]=competenzas`,
+                    `http://localhost:1338/api/users/${documentId}?populate[candidato][populate]=competenzas`,
                     {
                         headers: { Authorization: `Bearer ${jwt}` },
                     }
@@ -47,7 +49,8 @@ const CompetenzeCandidato = () => {
 
         try {
             const res = await fetch(
-                `https://lovable-horses-1f1c111d86.strapiapp.com/api/competenzas`,
+                //`https://lovable-horses-1f1c111d86.strapiapp.com/api/competenzas`,
+                `http://localhost:1338/api/competenzas`,
                 {
                     method: "POST",
                     headers: {
@@ -101,7 +104,8 @@ const CompetenzeCandidato = () => {
 
         try {
             const res = await fetch(
-                `https://lovable-horses-1f1c111d86.strapiapp.com/api/competenzas/${editingId}?publicationState=preview`,
+                //`https://lovable-horses-1f1c111d86.strapiapp.com/api/competenzas/${editingId}?publicationState=preview`,
+                `http://localhost:1338/api/competenzas/${editingId}?publicationState=preview`,
                 {
                     method: "PUT",
                     headers: {
@@ -133,7 +137,8 @@ const CompetenzeCandidato = () => {
             console.error("Errore:", err);
         }
         console.log("Aggiorno ID:", editingId);
-        console.log("URL:", `https://lovable-horses-1f1c111d86.strapiapp.com/api/competenzas/${editingId}`);
+        //console.log("URL:", `https://lovable-horses-1f1c111d86.strapiapp.com/api/competenzas/${editingId}`);
+        console.log("URL:", `http://localhost:1338/api/competenzas/${editingId}`);
     };
 
     //Funzione per eliminare una competenza
@@ -142,7 +147,8 @@ const CompetenzeCandidato = () => {
 
         try {
             const deleteRes = await fetch(
-                `https://lovable-horses-1f1c111d86.strapiapp.com/api/competenzas/${competenzaId}`,
+                //`https://lovable-horses-1f1c111d86.strapiapp.com/api/competenzas/${competenzaId}`,
+                `http://localhost:1338/api/competenzas/${competenzaId}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -166,6 +172,24 @@ const CompetenzeCandidato = () => {
 
 
     return (
+        <div className="admin-dashboard">
+      <aside className="sidebar">
+        <h2 className="logo">BugBusters</h2>
+        <nav className="nav">
+          <ul>
+            <li><Link className="no-style-link" to="/dashboard-candidato">Dashboard</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/profilo-candidato">Profilo</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/competenze-candidato">Competenze</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/preferenze">Attitudini e Preferenze</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/offerte-suggerite">Offerte di Lavoro</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/colloqui">Colloqui</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/feedback">Feedback Ricevuti</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/materiale-formativo">Materiali Formativi</Link></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main className="main-content">
         <div className="competenze-container">
             <h2>Competenze</h2>
             <form className="competenza-form" onSubmit={handleSubmit}>
@@ -242,6 +266,8 @@ const CompetenzeCandidato = () => {
                     ))
                 )}
             </ul>
+        </div>
+        </main>
         </div>
     );
 };

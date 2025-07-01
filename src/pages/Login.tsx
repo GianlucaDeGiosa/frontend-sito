@@ -17,7 +17,7 @@ const Login = () => {
     setError(null);
 
     try {
-      const response = await fetch("https://lovable-horses-1f1c111d86.strapiapp.com/api/auth/local", {
+      const response = await fetch(/*"https://lovable-horses-1f1c111d86.strapiapp.com/api/auth/local"*/ "http://localhost:1338/api/auth/local", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -36,10 +36,10 @@ const Login = () => {
 
       console.log("Login riuscito:", data);
 
-      const jwt = "dfc844b9c03479825c87ef987efcaa549f4a21f6308e35534700be4d86c6d12b374548cfa165ffe8757d25d9c67b137f7fb926f4f7da80eadc5fa220d18bcfaa8c4d2880bd6d61552aa49cafcdb572f129ee2b7b0b171eff206a09e6f714978c46d5aa055d995aba99585d160f548acb79d88f8069eb9249f2a43d5a3b6258ef";
-
+      // const jwt = "dfc844b9c03479825c87ef987efcaa549f4a21f6308e35534700be4d86c6d12b374548cfa165ffe8757d25d9c67b137f7fb926f4f7da80eadc5fa220d18bcfaa8c4d2880bd6d61552aa49cafcdb572f129ee2b7b0b171eff206a09e6f714978c46d5aa055d995aba99585d160f548acb79d88f8069eb9249f2a43d5a3b6258ef";
+      const jwt = "5cc5e00149f996aaab9e4a1fe0e4c2539e1010ece90b4e7669133d6411b20ee0a6ab8e7946f09bec12ba8b47d8bc93d132c50ec4be5e5b52c2922310db197714566c121660af7df48a191b60002e469ec166cd85fd65780346ebb1117f3ae0cff89a7d20da6d9abd60de041a100b1aa921ac73a05da0c3a33e0b07294552d3a1";
       // Fai una seconda richiesta per recuperare l'utente completo, incluso il ruolo
-      const userRes = await fetch(`https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${data.user.id}?populate=role`, {
+      const userRes = await fetch(/* `https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${data.user.id}?populate=role` */`http://localhost:1338/api/users/${data.user.id}?populate=role`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./attitudiniPreferenze.css";
+import { Link } from "react-router-dom";
 
 const AttitudiniPreferenze = () => {
   const [jwt, setJwt] = useState("");
@@ -32,7 +33,8 @@ const AttitudiniPreferenze = () => {
       if (!userId || !jwt) return;
 
       const res = await fetch(
-        `https://lovable-horses-1f1c111d86.strapiapp.com/api/candidatoes?filters[users_permissions_user][id][$eq]=${userId}`,
+        //`https://lovable-horses-1f1c111d86.strapiapp.com/api/candidatoes?filters[users_permissions_user][id][$eq]=${userId}`,
+        `http://localhost:1338/api/candidatoes?filters[users_permissions_user][id][$eq]=${userId}`,
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
@@ -91,7 +93,8 @@ const AttitudiniPreferenze = () => {
 
     try {
       const res = await fetch(
-        `https://lovable-horses-1f1c111d86.strapiapp.com/api/candidatoes/${candidatoId}`,
+        //`https://lovable-horses-1f1c111d86.strapiapp.com/api/candidatoes/${candidatoId}`,
+        `http://localhost:1338/api/candidatoes/${candidatoId}`,
         {
           method: "PUT",
           headers: {
@@ -132,6 +135,24 @@ const AttitudiniPreferenze = () => {
   };
 
   return (
+    <div className="admin-dashboard">
+      <aside className="sidebar">
+        <h2 className="logo">BugBusters</h2>
+        <nav className="nav">
+          <ul>
+            <li><Link className="no-style-link" to="/dashboard-candidato">Dashboard</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/profilo-candidato">Profilo</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/competenze-candidato">Competenze</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/preferenze">Attitudini e Preferenze</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/offerte-suggerite">Offerte di Lavoro</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/colloqui">Colloqui</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/feedback">Feedback Ricevuti</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/materiale-formativo">Materiali Formativi</Link></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main className="main-content">
     <div className="attitudini-container">
       <h2>Attitudini e Preferenze</h2>
 
@@ -193,6 +214,8 @@ const AttitudiniPreferenze = () => {
           Salva Preferenze
         </button>
       </form>
+    </div>
+    </main>
     </div>
   );
 };

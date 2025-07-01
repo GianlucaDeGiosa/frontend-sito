@@ -1,0 +1,134 @@
+.materiale-formativo {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f1f3f5;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #343a40;
+  color: white;
+  padding: 2rem 1rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.nav li {
+  margin-bottom: 1rem;
+}
+
+.no-style-link {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+}
+
+.no-style-link:hover,
+.no-style-link.active {
+  font-weight: bold;
+  text-decoration: underline;
+  color: #f8f9fa;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #f9f9f9;
+}
+
+.main-content h2 {
+  color: #007bff;
+  margin-bottom: 1.5rem;
+}
+
+/* Feedback list */
+.feedback-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feedback-item {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.feedback-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.feedback-rating {
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  color: white;
+}
+
+.rating-idoneo {
+  background-color: #28a745;
+}
+
+.rating-da-approfondire {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.rating-non-idoneo {
+  background-color: #dc3545;
+}
+
+.feedback-company,
+.feedback-job {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.feedback-comment {
+  font-size: 1rem;
+  color: #555;
+  margin-top: 0.75rem;
+  line-height: 1.5;
+}
+
+.feedback-loading,
+.feedback-error,
+.feedback-empty {
+  padding: 1rem;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 5px;
+  color: #856404;
+  margin-bottom: 1.5rem;
+}
+
+.feedback-error {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+.feedback-loading {
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+  color: #0c5460;
+}

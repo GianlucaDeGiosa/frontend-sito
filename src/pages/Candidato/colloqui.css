@@ -1,0 +1,162 @@
+.materiale-formativo {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f1f3f5;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #343a40;
+  color: white;
+  padding: 2rem 1rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.nav li {
+  margin-bottom: 1rem;
+}
+
+.no-style-link {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+}
+
+.no-style-link:hover,
+.no-style-link.active {
+  font-weight: bold;
+  text-decoration: underline;
+  color: #f8f9fa;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #f9f9f9;
+}
+
+.main-content h2 {
+  color: #007bff;
+  margin-bottom: 1.5rem;
+}
+
+/* Stato colloqui */
+.colloquio-status {
+  font-weight: bold;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.status-da-confermare {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.status-confermato {
+  background-color: #28a745;
+}
+
+.status-annullato---colloquio-rifiutato {
+  background-color: #dc3545;
+}
+
+.status-non-disponibile---cambiare-data {
+  background-color: #fd7e14;
+}
+
+.status-completato {
+  background-color: #17a2b8;
+}
+
+/* Colloquio list */
+.colloquio-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.colloquio-item {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.colloquio-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.colloquio-company,
+.colloquio-job,
+.colloquio-date,
+.colloquio-note {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.colloquio-note {
+  color: #555;
+  line-height: 1.4;
+}
+
+/* Azioni */
+.colloquio-actions button {
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: #007bff;
+  transition: background-color 0.3s;
+}
+
+.colloquio-actions button:hover {
+  background-color: #0056b3;
+}
+
+/* Messaggi di stato */
+.colloquio-loading,
+.colloquio-error,
+.colloquio-empty {
+  padding: 1rem;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 5px;
+  color: #856404;
+  margin-bottom: 1.5rem;
+}
+
+.colloquio-error {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+.colloquio-loading {
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+  color: #0c5460;
+}

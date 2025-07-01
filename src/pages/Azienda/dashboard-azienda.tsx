@@ -12,7 +12,8 @@ const DashboardAzienda: React.FC = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await fetch(`https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${userId}?populate=azienda`, {
+        //const res = await fetch(`https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${userId}?populate=azienda`, {
+        const res = await fetch(`http://localhost:1338/api/users/${userId}?populate=azienda`, {
           headers: {
             Authorization: `Bearer ${jwt}`,
           },
@@ -45,9 +46,9 @@ const DashboardAzienda: React.FC = () => {
             <li><Link className="no-style-link" to="/dashboard-azienda">Dashboard</Link></li>
             <li><Link className="no-style-link" to="/dashboard-azienda/profilo-azienda">Profilo</Link></li>
             <li><Link className="no-style-link" to="/dashboard-azienda/materiale-formativo">Materiale Formativi Aziendali</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-azienda/offerte">Offerte</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-azienda/offerte">Gestione Posizioni</Link></li>
             <li><Link className="no-style-link" to="/dashboard-azienda/colloqui">Colloqui</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-azienda/feedback">Feedback</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-azienda/candidature-ricevute">Candidature Ricevute</Link></li>
           </ul>
 
         </nav>

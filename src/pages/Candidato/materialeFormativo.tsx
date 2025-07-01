@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
+import './materialeFormativo.css';
 
 const VisualizzaMaterialeFormativo = () => {
   const [materiali, setMateriali] = useState<any[]>([]);
@@ -12,7 +14,8 @@ const VisualizzaMaterialeFormativo = () => {
 const fetchMateriali = React.useCallback(async () => {
     try {
       const res = await fetch(
-        `https://lovable-horses-1f1c111d86.strapiapp.com/api/materiale-formativos?filters[Pubblico][$eq]=true&populate=File`,
+        // `https://lovable-horses-1f1c111d86.strapiapp.com/api/materiale-formativos?filters[Pubblico][$eq]=true&populate=File`,
+        `http://localhost:1338/api/materiale-formativos?filters[Pubblico][$eq]=true&populate=File`,
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
@@ -32,7 +35,8 @@ const fetchMateriali = React.useCallback(async () => {
 const fetchAziende = React.useCallback(async () => {
     try {
       const res = await fetch(
-        `https://lovable-horses-1f1c111d86.strapiapp.com/api/aziendas`,
+        // `https://lovable-horses-1f1c111d86.strapiapp.com/api/aziendas`,
+        `http://localhost:1338/api/aziendas`,
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
@@ -88,6 +92,21 @@ const fetchAziende = React.useCallback(async () => {
 
   return (
     <div className="materiale-formativo">
+    <aside className="sidebar">
+        <h2 className="logo">BugBusters</h2>
+        <nav className="nav">
+          <ul>
+            <li><Link className="no-style-link" to="/dashboard-candidato">Dashboard</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/profilo-candidato">Profilo</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/competenze-candidato">Competenze</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/preferenze">Attitudini e Preferenze</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/offerte">Offerte Lavorative</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/colloqui">Colloqui</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/feedback">Feedback Ricevuti</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/materiale-formativo">Materiali Formativi</Link></li>
+          </ul>
+        </nav>
+      </aside>
       <main className="main-content">
         <div className="materiale-form">
           <h1>Materiale Formativo</h1>

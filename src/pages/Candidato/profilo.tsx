@@ -15,7 +15,8 @@ const ProfiloCandidato = () => {
     const fetchCandidato = async () => {
       try {
         const res = await fetch(
-          `https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${documentId}?populate=candidato.CurriculumVitae`,
+          // `https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${documentId}?populate=candidato.CurriculumVitae`,
+           `http://localhost:1338/api/users/${documentId}?populate=candidato.CurriculumVitae`,
           {
             headers: {
               Authorization: `Bearer ${jwt}`,
@@ -52,7 +53,8 @@ const ProfiloCandidato = () => {
 
     try {
       const res = await fetch(
-        `https://lovable-horses-1f1c111d86.strapiapp.com/api/candidatoes/${candidato.id}`,
+        // `https://lovable-horses-1f1c111d86.strapiapp.com/api/candidatoes/${candidato.id}`,
+          `http://localhost:1338/api/candidatoes/${candidato.id}`,
         {
           method: "PUT",
           headers: {
@@ -87,7 +89,8 @@ const ProfiloCandidato = () => {
       if (curriculum.length > 0) {
         const deletePromises = curriculum.map((file) =>
           fetch(
-            `https://lovable-horses-1f1c111d86.strapiapp.com/api/upload/files/${file.id}`,
+            // `https://lovable-horses-1f1c111d86.strapiapp.com/api/upload/files/${file.id}`,
+            `http://localhost:1338/api/upload/files/${file.id}`,
             {
               method: "DELETE",
               headers: {
@@ -107,7 +110,8 @@ const ProfiloCandidato = () => {
       formData.append("field", "CurriculumVitae");
 
       const res = await fetch(
-        "https://lovable-horses-1f1c111d86.strapiapp.com/api/upload",
+        // "https://lovable-horses-1f1c111d86.strapiapp.com/api/upload",
+        "http://localhost:1338/api/upload",
         {
           method: "POST",
           headers: {

@@ -22,7 +22,8 @@ const Colloqui: React.FC = () => {
     useEffect(() => {
         const fetchAzienda = async () => {
             try {
-                const res = await fetch(`https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${userId}?populate=azienda`, {
+                //const res = await fetch(`https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${userId}?populate=azienda`, {
+                const res = await fetch(`http://localhost:1338/api/users/${userId}?populate=azienda`, {
                     headers: {
                         Authorization: `Bearer ${jwt}`,
                     },
@@ -49,15 +50,16 @@ const Colloqui: React.FC = () => {
     return (
         <div className="dashboard-container">
             <aside className="sidebar">
-                <h2 className="logo" style={{ margin: 0 }}>{Azienda?.NomeAzienda || "Utente"}</h2>
+                <h2 className="logo" style={{ margin: 0 }}>{Azienda.azienda?.NomeAzienda || "Utente"}</h2>
                 <nav className="nav">
                     <ul>
                         <li><Link className="no-style-link" to="/dashboard-azienda">Dashboard</Link></li>
                         <li><Link className="no-style-link" to="/dashboard-azienda/profilo-azienda">Profilo</Link></li>
-                        <li><Link className="no-style-link" to="/dashboard-azienda/offerte">Offerte</Link></li>
+                        <li><Link className="no-style-link" to="/dashboard-azienda/materiale-formativo">Materiale Formativi Aziendali</Link></li>
+                        <li><Link className="no-style-link" to="/dashboard-azienda/offerte">Gestione Posizioni</Link></li>
                         <li><Link className="no-style-link" to="/dashboard-azienda/colloqui">Colloqui</Link></li>
+                        <li><Link className="no-style-link" to="/dashboard-azienda/candidature-ricevute">Candidature Ricevute</Link></li>
                     </ul>
-
                 </nav>
             </aside>
 
