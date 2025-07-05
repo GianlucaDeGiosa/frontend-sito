@@ -1,0 +1,215 @@
+/* Layout generale */
+.admin-dashboard {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #343a40;
+  color: white;
+  padding: 2rem 1rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.nav li {
+  margin-bottom: 1rem;
+}
+
+.no-style-link {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+}
+
+.no-style-link:hover,
+.no-style-link.active {
+  font-weight: bold;
+  color: #f8f9fa;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #f9f9f9;
+}
+
+/* Filtro offerta e filtri */
+.filtro-offerta,
+.filtri-candidati {
+  margin-bottom: 1.5rem;
+}
+
+.filtro-offerta label,
+.filtri-candidati select {
+  font-size: 1rem;
+}
+
+.filtri-candidati select {
+  margin-right: 1rem;
+}
+
+/* Lista candidati */
+.candidati-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.candidato-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s;
+}
+
+.candidato-item:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Action buttons sotto ogni candidato */
+.action-buttons {
+  margin-top: 0.75rem;
+}
+
+.action-buttons button {
+  padding: 0.4rem 0.8rem;
+  margin-right: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.action-buttons button:first-child {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.action-buttons button:first-child:hover {
+  background-color: #0056b3;
+}
+
+.action-buttons button:last-child {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.action-buttons button:last-child:hover {
+  background-color: #5a6268;
+}
+
+/* Form feedback & colloquio affiancati */
+.feedback-colloquio-forms {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Feedback form */
+.feedback-form {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.feedback-form h3 {
+  margin-top: 0;
+  color: #007bff;
+}
+
+.feedback-form label {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.feedback-form select,
+.feedback-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  box-sizing: border-box;
+}
+
+/* Colloquio form */
+.colloquio-form {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.colloquio-form h3 {
+  margin-top: 0;
+  color: #28a745;
+}
+
+.colloquio-form label {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.colloquio-form input[type="datetime-local"],
+.colloquio-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  box-sizing: border-box;
+}
+
+/* Pulsanti globali */
+.primary-button {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.primary-button:hover {
+  background-color: #0056b3;
+}
+
+.secondary-button {
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  color: #212529;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.secondary-button:hover {
+  background-color: #e2e6ea;
+}
+
+/* Messaggio di errore */
+.feedback-error {
+  margin-top: 1rem;
+  color: #dc3545;
+  font-weight: bold;
+}

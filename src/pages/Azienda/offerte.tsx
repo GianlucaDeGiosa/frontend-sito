@@ -21,7 +21,6 @@ const OfferteAzienda: React.FC = () => {
     const [openMenuId, setOpenMenuId] = useState<number | null>(null);
     const [loading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
-    const [editingId, setEditingId] = useState<number | null>(null);
 
     // singoli campi
     const [titolo, setTitolo] = useState("");
@@ -37,6 +36,67 @@ const OfferteAzienda: React.FC = () => {
     const [aziendaId, setAziendaId] = useState<string | null>(null);
     const jwt = localStorage.getItem("jwt");
     const userId = localStorage.getItem("userId");
+
+    const [editingId, setEditingId] = useState<number | null>(null);
+
+    //Stato e tipo per prenotazione colloqui
+    /*colloquio in creazione per un singolo candidato*/
+    type ColloquioDraft = {
+        data: string;          // ISO datetime-local
+        note: string;
+    };
+
+    const [openColloquioId, setOpenColloquioId] = useState<{
+        offerta: number;
+        candidato: number;
+    } | null>(null);
+
+    const [draftColloqui, setDraftColloqui] = useState<{
+        [key: string]: ColloquioDraft;      // key = `${offertaId}-${candidatoId}`
+    }>({});
+
+    //Funzione submitColloquio
+    const submitColloquio = async (off: OffertaLavoro, cand: any) => {
+        const key = `${off.id}-${cand.id}`;
+        const draft = draftColloqui[key];
+        if (!draft?.data) {
+            alert("Seleziona data e ora del colloquio");
+            return;
+        }
+
+        const payload = {
+            data: {
+                Data: draft.data,                 // ISO datetime, Strapi accetta stringa
+                Note: draft.note || "",
+                Stato: "Da confermare",
+                offerta_lavoro: off.id,
+                candidato: cand.id,
+                azienda: aziendaId,
+            },
+        };
+
+        try {
+            const res = await fetch("http://localhost:1338/api/colloquios", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${jwt}`,
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!res.ok) {
+                const txt = await res.text();
+                throw new Error(txt);
+            }
+            alert("Colloquio salvato correttamente!");
+            // chiudi il form
+            setOpenColloquioId(null);
+        } catch (err) {
+            console.error(err);
+            alert("Errore durante il salvataggio.");
+        }
+    };
 
     // 1) fetch aziendaId e offerte
     useEffect(() => {
@@ -55,7 +115,7 @@ const OfferteAzienda: React.FC = () => {
                 );
                 console.log("Fetch utente, status:", resUser.status);
                 if (!resUser.ok) {
-                    console.error("Errore HTTP caricamento utente", resUser.status);
+                    console.error("Errore http caricamento utente", resUser.status);
                     setLoading(false);
                     return;
                 }
@@ -81,7 +141,7 @@ const OfferteAzienda: React.FC = () => {
                 const resOff = await fetch(urlOff, { headers: { Authorization: `Bearer ${jwt}` } });
                 console.log("Fetch offerte, status:", resOff.status);
                 if (!resOff.ok) {
-                    console.error("Errore HTTP caricamento offerte", resOff.status);
+                    console.error("Errore http caricamento offerte", resOff.status);
                     setLoading(false);
                     return;
                 }
@@ -208,8 +268,6 @@ const OfferteAzienda: React.FC = () => {
             },
         };
 
-        // Cloud URL esempio
-        //`https://lovable-horses-1f1c111d86.strapiapp.com/api/offerta-lavoros${editingId ? `/${editingId}` : ""}`
         const url = editingId
             ? `http://localhost:1338/api/offerta-lavoros/${editingId}`
             : `http://localhost:1338/api/offerta-lavoros`;
@@ -227,9 +285,6 @@ const OfferteAzienda: React.FC = () => {
             console.error("Strapi:", await res.text());
             return;
         }
-        // dopo POST, l'ID nuovo è in ref.data.id
-        // Cloud URL esempio
-        //`https://lovable-horses-1f1c111d86.strapiapp.com/api/offerta-lavoros?populate=*&filters[azienda][id][$eq]=${aziendaId}`
         await fetch(
             `http://localhost:1338/api/offerta-lavoros?populate=*&filters[azienda][id][$eq]=${aziendaId}`,
             { headers: { Authorization: `Bearer ${jwt}` } }
@@ -243,9 +298,7 @@ const OfferteAzienda: React.FC = () => {
     // 5) Elimina
     const handleDelete = async (id: number) => {
         if (!window.confirm("Eliminare questa offerta?")) return;
-        // Cloud URL esempio
-        //`https://lovable-horses-1f1c111d86.strapiapp.com/api/offerta-lavoros/${id}`
-        await fetch(`http://localhost:1338/api/offerta-lavoros/${id}`, {
+            await fetch(`http://localhost:1338/api/offerta-lavoros/${id}`, {
             method: "DELETE",
             headers: { Authorization: `Bearer ${jwt}` },
         });
@@ -306,34 +359,11 @@ const OfferteAzienda: React.FC = () => {
                 </h2>
                 <nav className="nav">
                     <ul>
-                        <li>
-                            <Link className="no-style-link" to="/dashboard-azienda">
-                                Dashboard
-                            </Link>
-                        </li>
-                        <li>
-                            <Link className="no-style-link" to="/dashboard-azienda/profilo-azienda">
-                                Profilo
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                className="no-style-link"
-                                to="/dashboard-azienda/materiale-formativo"
-                            >
-                                Materiale Formativi Aziendali
-                            </Link>
-                        </li>
-                        <li>
-                            <Link className="no-style-link" to="/dashboard-azienda/offerte">
-                                Gestione Posizioni
-                            </Link>
-                        </li>
-                        <li>
-                            <Link className="no-style-link" to="/dashboard-azienda/colloqui">
-                                Colloqui
-                            </Link>
-                        </li>
+                        <li><Link className="no-style-link" to="/dashboard-azienda">Dashboard</Link></li>
+                        <li><Link className="no-style-link" to="/dashboard-azienda/profilo-azienda">Profilo</Link></li>
+                        <li><Link className="no-style-link" to="/dashboard-azienda/materiale-formativo">Materiali Formativi</Link></li>
+                        <li><Link className="no-style-link active" to="/dashboard-azienda/offerte">Gestione Posizioni</Link></li>
+                        <li><Link className="no-style-link" to="/dashboard-azienda/colloqui">Colloqui</Link></li>
                         <li><Link className="no-style-link" to="/dashboard-azienda/candidature-ricevute">Candidature Ricevute</Link></li>
                     </ul>
                 </nav>
@@ -502,16 +532,100 @@ const OfferteAzienda: React.FC = () => {
                                                     {candidatiSuggeriti[off.id].map((cand) => (
                                                         <li key={cand.id}>
                                                             <strong>{cand.Nome} {cand.Cognome}</strong><br />
+                                                            {/* pulsante prenotazione */}
+                                                            <button
+                                                                className="primary-button"
+                                                                onClick={() => {
+                                                                    const key = `${off.id}-${cand.id}`;
+                                                                    // inizializza draft se non esiste
+                                                                    setDraftColloqui((prev) => ({
+                                                                        ...prev,
+                                                                        [key]: prev[key] || { data: "", note: "" },
+                                                                    }));
+                                                                    setOpenColloquioId(
+                                                                        openColloquioId?.offerta === off.id && openColloquioId.candidato === cand.id
+                                                                            ? null
+                                                                            : { offerta: off.id, candidato: cand.id }
+                                                                    );
+                                                                }}
+                                                            >
+                                                                Prenota Colloquio
+                                                            </button>
+
+                                                            {/* MENU A TENDINA */}
+                                                            {openColloquioId?.offerta === off.id && openColloquioId.candidato === cand.id && (
+                                                                <div
+                                                                    style={{
+                                                                        border: "1px solid #ccc",
+                                                                        padding: ".8rem",
+                                                                        marginTop: ".5rem",
+                                                                        borderRadius: "6px",
+                                                                        background: "#fafafa",
+                                                                    }}
+                                                                >
+                                                                    <label>
+                                                                        Data e ora:&nbsp;
+                                                                        <input
+                                                                            type="datetime-local"
+                                                                            value={draftColloqui[`${off.id}-${cand.id}`]?.data || ""}
+                                                                            onChange={(e) =>
+                                                                                setDraftColloqui((prev) => ({
+                                                                                    ...prev,
+                                                                                    [`${off.id}-${cand.id}`]: {
+                                                                                        ...prev[`${off.id}-${cand.id}`],
+                                                                                        data: e.target.value,
+                                                                                    },
+                                                                                }))
+                                                                            }
+                                                                        />
+                                                                    </label>
+                                                                    <br />
+                                                                    <label>
+                                                                        Stato:&nbsp;
+                                                                        <select disabled defaultValue="DaConfermare">
+                                                                            <option>Da confermare</option>
+                                                                            <option>Confermato</option>
+                                                                            <option>Annullato - Colloquio Rifiutato</option>
+                                                                            <option>Non disponibile - Cambiare Data</option>
+                                                                            <option>Completato</option>
+                                                                        </select>
+                                                                    </label>
+                                                                    <br />
+                                                                    <label>
+                                                                        Note:&nbsp;
+                                                                        <textarea
+                                                                            rows={2}
+                                                                            value={draftColloqui[`${off.id}-${cand.id}`]?.note || ""}
+                                                                            onChange={(e) =>
+                                                                                setDraftColloqui((prev) => ({
+                                                                                    ...prev,
+                                                                                    [`${off.id}-${cand.id}`]: {
+                                                                                        ...prev[`${off.id}-${cand.id}`],
+                                                                                        note: e.target.value,
+                                                                                    },
+                                                                                }))
+                                                                            }
+                                                                        />
+                                                                    </label>
+                                                                    <br />
+                                                                    <button
+                                                                        className="primary-button"
+                                                                        style={{ marginTop: ".4rem" }}
+                                                                        onClick={() => submitColloquio(off, cand)}
+                                                                    >
+                                                                        Salva colloquio
+                                                                    </button>
+                                                                </div>
+                                                            )}
                                                             {cand.CurriculumVitae?.length > 0 ? (
                                                                 cand.CurriculumVitae.map((cv: any, idx: number) => (
                                                                     <div key={idx}>
-                                                                        <a
-                                                                            href={`http://localhost:1338${cv.url}`}
-                                                                            target="_blank"
-                                                                            rel="noopener noreferrer"
+                                                                        <button
+                                                                            className="primary-button"
+                                                                            onClick={() => window.open(`http://localhost:1338${cv.url}`, "_blank", "noopener,noreferrer")}
                                                                         >
                                                                             Visualizza CV {idx + 1}
-                                                                        </a>
+                                                                        </button>
                                                                     </div>
                                                                 ))
                                                             ) : (

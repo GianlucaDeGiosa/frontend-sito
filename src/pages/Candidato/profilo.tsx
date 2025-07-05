@@ -8,6 +8,7 @@ const ProfiloCandidato = () => {
   const [editing, setEditing] = useState(false);
   const [curriculum, setCurriculum] = useState<any[]>([]);
   const [userEmail, setUserEmail] = useState<string>("");
+  const [livelloEsperienza, setLivelloEsperienza] = useState<string>("");
   const jwt = localStorage.getItem("jwt");
   const documentId = localStorage.getItem("userId");
 
@@ -15,8 +16,8 @@ const ProfiloCandidato = () => {
     const fetchCandidato = async () => {
       try {
         const res = await fetch(
-          // `https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${documentId}?populate=candidato.CurriculumVitae`,
-           `http://localhost:1338/api/users/${documentId}?populate=candidato.CurriculumVitae`,
+          // `http://localhost:1338/api/users/${documentId}?populate=candidato.CurriculumVitae`,
+          `http://localhost:1338/api/users/${documentId}?populate=candidato.CurriculumVitae`,
           {
             headers: {
               Authorization: `Bearer ${jwt}`,
@@ -33,6 +34,7 @@ const ProfiloCandidato = () => {
 
         setCandidato(data.candidato);
         setTelefono(data.candidato?.NumeroTelefono?.toString() || "");
+        setLivelloEsperienza(data.candidato?.LivelloEsperienza || "");
       } catch (error) {
         console.error("Errore durante il recupero del profilo:", error);
       }
@@ -53,8 +55,8 @@ const ProfiloCandidato = () => {
 
     try {
       const res = await fetch(
-        // `https://lovable-horses-1f1c111d86.strapiapp.com/api/candidatoes/${candidato.id}`,
-          `http://localhost:1338/api/candidatoes/${candidato.id}`,
+        // `http://localhost:1338/api/candidatoes/${candidato.id}`,
+        `http://localhost:1338/api/candidatoes/${candidato.documentId}`,
         {
           method: "PUT",
           headers: {
@@ -80,6 +82,46 @@ const ProfiloCandidato = () => {
       console.error("Errore nel salvataggio del numero di telefono:", error);
     }
   };
+  const handleLivelloEsperienzaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setLivelloEsperienza(e.target.value);
+  };
+
+  const handleSalvaEsperienza = async () => {
+    if (!candidato?.id) {
+      console.error("ID candidato mancante");
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `http://localhost:1338/api/candidatoes/${candidato.documentId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+          },
+          body: JSON.stringify({
+            data: {
+              LivelloEsperienza: livelloEsperienza,
+            },
+          }),
+        }
+      );
+
+      if (res.ok) {
+        setCandidato((prev: any) => ({
+          ...prev,
+          LivelloEsperienza: livelloEsperienza,
+        }));
+        alert("Livello esperienza salvato con successo");
+      } else {
+        console.error("Errore durante il salvataggio del livello esperienza:", await res.text());
+      }
+    } catch (error) {
+      console.error("Errore nel salvataggio del livello esperienza:", error);
+    }
+  };
 
   const handleUploadCurriculum = async (file: File) => {
     if (!file || !candidato?.id) return;
@@ -89,7 +131,7 @@ const ProfiloCandidato = () => {
       if (curriculum.length > 0) {
         const deletePromises = curriculum.map((file) =>
           fetch(
-            // `https://lovable-horses-1f1c111d86.strapiapp.com/api/upload/files/${file.id}`,
+            // `http://localhost:1338/api/upload/files/${file.id}`,
             `http://localhost:1338/api/upload/files/${file.id}`,
             {
               method: "DELETE",
@@ -110,7 +152,6 @@ const ProfiloCandidato = () => {
       formData.append("field", "CurriculumVitae");
 
       const res = await fetch(
-        // "https://lovable-horses-1f1c111d86.strapiapp.com/api/upload",
         "http://localhost:1338/api/upload",
         {
           method: "POST",
@@ -123,7 +164,7 @@ const ProfiloCandidato = () => {
 
       if (res.ok) {
         const uploaded = await res.json();
-        setCurriculum(uploaded); // ✅ Sostituiamo, non aggiungiamo
+        setCurriculum(uploaded);
         alert("Curriculum caricato con successo.");
       } else {
         console.error("Errore nell’upload:", await res.text());
@@ -143,10 +184,9 @@ const ProfiloCandidato = () => {
         <nav className="nav">
           <ul>
             <li><Link className="no-style-link" to="/dashboard-candidato">Dashboard</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/profilo-candidato">Profilo</Link></li>
+            <li><Link className="no-style-link active" to="/dashboard-candidato/profilo-candidato">Profilo</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/competenze-candidato">Competenze</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/preferenze">Attitudini e Preferenze</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/offerte">Offerte Lavorative</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/offerte-lavoro">Offerte di Lavoro</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/colloqui">Colloqui</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/feedback">Feedback Ricevuti</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/materiale-formativo">Materiali Formativi</Link></li>
@@ -182,8 +222,21 @@ const ProfiloCandidato = () => {
           </div>
 
           <div className="profilo-dettaglio">
+            <strong>Livello Esperienza:</strong>
+            <select value={livelloEsperienza} onChange={handleLivelloEsperienzaChange}>
+              <option value="">Seleziona</option>
+              <option value="Junior">Junior</option>
+              <option value="Mid">Mid</option>
+              <option value="Senior">Senior</option>
+            </select>
+            <button className="salva-btn" onClick={handleSalvaEsperienza}>Salva</button>
+          </div>
+
+
+          <div className="profilo-dettaglio">
             <strong>Curriculum Vitae:</strong>
             <input
+
               type="file"
               accept=".pdf,.doc,.docx"
               onChange={(e) => {
@@ -195,9 +248,17 @@ const ProfiloCandidato = () => {
               <ul>
                 {curriculum.map((file) => (
                   <li key={file.id}>
-                    <a href={file.url.startsWith("http") ? file.url : `${file.url}`} target="_blank" rel="noopener noreferrer">
+                    <button
+                      className="primary-button"
+                      onClick={() =>
+                        window.open(
+                          file.url.startsWith("http")
+                            ? file.url
+                            : `http://localhost:1338${file.url}`,
+                          "_blank",
+                          "noopener,noreferrer")}>
                       {file.name}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>

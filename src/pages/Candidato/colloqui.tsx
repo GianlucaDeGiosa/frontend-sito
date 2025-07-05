@@ -39,7 +39,7 @@ const ColloquiRicevuti: React.FC = () => {
         );
         console.log("Fetch utente, status:", resUser.status);
         if (!resUser.ok) {
-          console.error("Errore HTTP caricamento utente", resUser.status);
+          console.error("Errore http caricamento utente", resUser.status);
           setLoading(false);
           return;
         }
@@ -64,7 +64,7 @@ const ColloquiRicevuti: React.FC = () => {
         const resColloqui = await fetch(urlColloqui, { headers: { Authorization: `Bearer ${jwt}` } });
         console.log("Fetch colloqui, status:", resColloqui.status);
         if (!resColloqui.ok) {
-          console.error("Errore HTTP caricamento colloqui", resColloqui.status);
+          console.error("Errore http caricamento colloqui", resColloqui.status);
           setLoading(false);
           return;
         }
@@ -180,8 +180,7 @@ const ColloquiRicevuti: React.FC = () => {
             <li><Link className="no-style-link" to="/dashboard-candidato">Dashboard</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/profilo-candidato">Profilo</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/competenze-candidato">Competenze</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/preferenze">Attitudini e Preferenze</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/offerte-suggerite">Offerte di Lavoro</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/offerte-lavoro">Offerte di Lavoro</Link></li>
             <li><Link className="no-style-link active" to="/dashboard-candidato/colloqui">Colloqui</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/feedback">Feedback Ricevuti</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/materiale-formativo">Materiali Formativi</Link></li>

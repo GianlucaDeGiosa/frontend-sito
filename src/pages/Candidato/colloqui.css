@@ -37,7 +37,6 @@
 .no-style-link:hover,
 .no-style-link.active {
   font-weight: bold;
-  text-decoration: underline;
   color: #f8f9fa;
 }
 

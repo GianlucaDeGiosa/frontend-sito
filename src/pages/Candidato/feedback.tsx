@@ -34,7 +34,7 @@ const FeedbackRicevuti: React.FC = () => {
         );
         console.log("Fetch utente, status:", resUser.status);
         if (!resUser.ok) {
-          console.error("Errore HTTP caricamento utente", resUser.status);
+          console.error("Errore http caricamento utente", resUser.status);
           setLoading(false);
           return;
         }
@@ -59,7 +59,7 @@ const FeedbackRicevuti: React.FC = () => {
         const resFb = await fetch(urlFb, { headers: { Authorization: `Bearer ${jwt}` } });
         console.log("Fetch offerte, status:", resFb.status);
         if (!resFb.ok) {
-          console.error("Errore HTTP caricamento offerte", resFb.status);
+          console.error("Errore http caricamento offerte", resFb.status);
           setLoading(false);
           return;
         }
@@ -86,7 +86,7 @@ const FeedbackRicevuti: React.FC = () => {
   }, [jwt, userId, candidatoId]);
 
   return (
-    <div className="materiale-formativo">
+    <div className="feedback">
       <aside className="sidebar">
         <h2 className="logo">BugBusters</h2>
         <nav className="nav">
@@ -94,8 +94,7 @@ const FeedbackRicevuti: React.FC = () => {
             <li><Link className="no-style-link" to="/dashboard-candidato">Dashboard</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/profilo-candidato">Profilo</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/competenze-candidato">Competenze</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/preferenze">Attitudini e Preferenze</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/offerte-suggerite">Offerte di Lavoro</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/offerte-lavoro">Offerte di Lavoro</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/colloqui">Colloqui</Link></li>
             <li><Link className="no-style-link active" to="/dashboard-candidato/feedback">Feedback Ricevuti</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/materiale-formativo">Materiali Formativi</Link></li>
@@ -107,7 +106,7 @@ const FeedbackRicevuti: React.FC = () => {
         {loading && <div className="feedback-loading">Caricamento feedback...</div>}
         {errore && <div className="feedback-error">{errore}</div>}
         {!loading && !errore && feedbacks.length === 0 && (
-          <div className="feedback-empty">Non sono ancora stati rilasciati feedbac dalle aziende.</div>
+          <div className="feedback-empty">Non sono ancora stati rilasciati feedback dalle aziende.</div>
         )}
         {!loading && !errore && feedbacks.length > 0 && (
           <ul className="feedback-list">

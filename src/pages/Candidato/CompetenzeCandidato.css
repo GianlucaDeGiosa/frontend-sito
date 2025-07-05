@@ -9,6 +9,41 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #343a40;
+  color: white;
+  padding: 2rem 1rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.nav li {
+  margin-bottom: 1rem;
+}
+
+.no-style-link {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+}
+
+.no-style-link:hover,
+.no-style-link.active {
+  font-weight: bold;
+  color: #f8f9fa;
+}
+
 .competenze-container h2 {
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
@@ -103,4 +138,19 @@
 
 .btn-group button:last-child:hover {
   background-color: #c82333;
+}
+
+.primary-button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 0.5rem;
+}
+
+.primary-button:hover {
+    background-color: #0056b3;
 }

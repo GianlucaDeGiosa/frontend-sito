@@ -9,23 +9,55 @@ const DashboardAzienda: React.FC = () => {
   const jwt = localStorage.getItem("jwt");
   const userId = localStorage.getItem("userId");
 
-  useEffect(() => {
+    useEffect(() => {
     const fetchUserData = async () => {
       try {
-        //const res = await fetch(`https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${userId}?populate=azienda`, {
+        //const res = await fetch(`http://localhost:1338/api/users/${userId}?populate=azienda`, {
         const res = await fetch(`http://localhost:1338/api/users/${userId}?populate=azienda`, {
           headers: {
             Authorization: `Bearer ${jwt}`,
           },
-        }
-        );
-        const data = await res.json();
-        setUserData(data);
+        });
+        const user = await res.json();
         setLoading(false);
-        if (!localStorage.getItem("aziendaId")) {
-          localStorage.setItem("aziendaId", data.azienda.documentId);
+
+        const aziendaId = user.azienda?.documentId;
+        if (aziendaId && !localStorage.getItem("aziendaId")) {
+          localStorage.setItem("aziendaId", aziendaId);
         }
         localStorage.setItem("ruolo", "azienda");
+
+        // ➜ GET di tutte le risorse collegate all' azienda
+        const [offRes, collRes, feedRes, matRes] = await Promise.all([
+          fetch(`http://localhost:1338/api/offerta-lavoros?filters[azienda][documentId][$eq]=${aziendaId}`, {
+            headers: { Authorization: `Bearer ${jwt}` },
+          }),
+          fetch(`http://localhost:1338/api/colloquios?filters[azienda][documentId][$eq]=${aziendaId}`, {
+            headers: { Authorization: `Bearer ${jwt}` },
+          }),
+          fetch(`http://localhost:1338/api/feedbacks?filters[azienda][documentId][$eq]=${aziendaId}`, {
+            headers: { Authorization: `Bearer ${jwt}` },
+          }),
+          fetch(`http://localhost:1338/api/materiale-formativos?filters[azienda][documentId][$eq]=${aziendaId}`, {
+            headers: { Authorization: `Bearer ${jwt}` },
+          }),
+        ]);
+
+        const [offData, collData, feedData, matData] = await Promise.all([
+          offRes.json(),
+          collRes.json(),
+          feedRes.json(),
+          matRes.json(),
+        ]);
+
+        setUserData({
+          ...user,
+          offerta_lavoros: offData.data,
+          colloquios: collData.data,
+          feedbacks: feedData.data,
+          materiale_formativos: matData.data,
+        });
+
       } catch (err) {
         console.error("Errore caricamento dati utente:", err);
       }
@@ -33,7 +65,7 @@ const DashboardAzienda: React.FC = () => {
 
     fetchUserData();
   }, [userId, jwt]);
-
+  
   if (loading) return <div>Caricamento...</div>;
   if (!userData) return <div>Errore nel caricamento dati.</div>;
 
@@ -43,9 +75,9 @@ const DashboardAzienda: React.FC = () => {
         <h2 className="logo" style={{ margin: 0 }}>{userData.azienda?.NomeAzienda || "Utente"}</h2>
         <nav className="nav">
           <ul>
-            <li><Link className="no-style-link" to="/dashboard-azienda">Dashboard</Link></li>
+            <li><Link className="no-style-link active" to="/dashboard-azienda">Dashboard</Link></li>
             <li><Link className="no-style-link" to="/dashboard-azienda/profilo-azienda">Profilo</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-azienda/materiale-formativo">Materiale Formativi Aziendali</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-azienda/materiale-formativo">Materiali Formativi</Link></li>
             <li><Link className="no-style-link" to="/dashboard-azienda/offerte">Gestione Posizioni</Link></li>
             <li><Link className="no-style-link" to="/dashboard-azienda/colloqui">Colloqui</Link></li>
             <li><Link className="no-style-link" to="/dashboard-azienda/candidature-ricevute">Candidature Ricevute</Link></li>
@@ -57,22 +89,24 @@ const DashboardAzienda: React.FC = () => {
       <main className="main-content">
         <header className="topbar">
           <h1>Benvenuto {userData.azienda?.NomeAzienda || "Utente"}!</h1>
-          <input type="search" placeholder="Cerca..." />
         </header>
 
         <section className="cards">
-
-        </section>
-
-        <section className="analytics">
-          <div className="chart-placeholder">
-            <h3>Andamento Competenze Inserite</h3>
-            <div className="chart-box">[Grafico Linea]</div>
+          <div className="card">
+            <h3>Offerte di lavoro inserite</h3>
+            <p>{userData.offerta_lavoros.length ?? 0}</p>
           </div>
-
-          <div className="chart-placeholder">
-            <h3>Completamento Profilo</h3>
-            <div className="chart-box">[Gauge Chart 83%]</div>
+          <div className="card">
+            <h3>Colloqui Prenotati</h3>
+            <p>{userData.colloquios.length ?? 0}</p>
+          </div>
+          <div className="card">
+            <h3>Feedback Inviati</h3>
+            <p>{userData.feedbacks.length ?? 0}</p>
+          </div>
+          <div className="card">
+            <h3>Materiale Formativo</h3>
+            <p>{userData.materiale_formativos.length ?? 0}</p>
           </div>
         </section>
       </main>

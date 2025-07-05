@@ -9,7 +9,7 @@ const ProfiloAzienda: React.FC = () => {
   const [editingCultura, setEditingCultura] = useState(false);
   const [cultura, setCultura] = useState<string>("");
   const [descrizione, setDescrizione] = useState<string>("");
-  const [logoUrl, setLogoUrl] = useState("");
+  const [logoUrl, setLogoUrl] = useState<any[]>([]);
 
   const jwt = localStorage.getItem("jwt");
   const userId = localStorage.getItem("userId");
@@ -18,8 +18,8 @@ const ProfiloAzienda: React.FC = () => {
     const fetchAzienda = async () => {
       try {
         const res = await fetch(
-          //`https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${userId}?populate=azienda`,
-          `http://localhost:1338/api/users/${userId}?populate=azienda`,
+          //`http://localhost:1338/api/users/${userId}?populate=azienda`,
+          `http://localhost:1338/api/users/${userId}?populate[azienda][populate]=Logo`,
           {
             headers: {
               Authorization: `Bearer ${jwt}`,
@@ -30,8 +30,9 @@ const ProfiloAzienda: React.FC = () => {
         setAzienda(data);
         setCultura(data.azienda?.Cultura || "");
         setDescrizione(data.azienda?.Descrizione || "");
-        setLogoUrl(data.azienda?.Logo || "");
+        setLogoUrl(data.azienda?.Logo || []);
         setLoading(false);
+        console.log("Dati utente:", data);
       } catch (err) {
         console.error("Errore caricamento dati utente:", err);
       }
@@ -51,7 +52,6 @@ const ProfiloAzienda: React.FC = () => {
     }
     try {
       const res = await fetch(
-        //`https://lovable-horses-1f1c111d86.strapiapp.com/api/aziendas/${azienda.documentId}`,
         `http://localhost:1338/api/aziendas/${azienda.documentId}`,
         {
           method: "PUT",
@@ -90,7 +90,6 @@ const ProfiloAzienda: React.FC = () => {
     }
     try {
       const res = await fetch(
-        //`https://lovable-horses-1f1c111d86.strapiapp.com/api/aziendas/${azienda.documentId}`,
         `http://localhost:1338/api/aziendas/${azienda.documentId}`,
         {
           method: "PUT",
@@ -119,58 +118,55 @@ const ProfiloAzienda: React.FC = () => {
   };
 
   const handleUploadLogo = async (file: File) => {
-  const formData = new FormData();
-  formData.append("files", file);
-  formData.append("ref", "api::azienda.azienda");
-  formData.append("refId", Azienda.azienda.id);
-  formData.append("field", "Logo");
+    if (!file || !azienda?.id) return;
 
-  try {
-    const uploadRes = await fetch("http://localhost:1338/api/upload", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-      body: formData,
-    });
-
-    if (!uploadRes.ok) {
-      console.error("Errore upload logo:", await uploadRes.text());
-      return;
-    }
-
-    const uploaded = await uploadRes.json();
-    const fileId = uploaded[0]?.id;
-
-    // Aggiorna il campo Logo dell'azienda con l'ID del file caricato
-    const updateRes = await fetch(
-      `http://localhost:1338/api/aziendas/${Azienda.azienda.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${jwt}`,
-        },
-        body: JSON.stringify({
-          data: { Logo: fileId },
-        }),
+    try {
+      // ✅ 1. Se esiste un logo precedente, lo eliminiamo
+      if (logoUrl.length > 0) {
+        const deletePromises = logoUrl.map((file) =>
+          fetch(
+            `http://localhost:1338/api/upload/files/${file.id}`,
+            {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+              },
+            }
+          )
+        );
+        await Promise.all(deletePromises);
       }
-    );
 
-    if (!updateRes.ok) {
-      console.error("Errore aggiornamento campo logo:", await updateRes.text());
-      return;
+      // ✅ 2. Carichiamo il nuovo file
+      const formData = new FormData();
+      formData.append("files", file);
+      formData.append("ref", "api::azienda.azienda");
+      formData.append("refId", azienda.id);
+      formData.append("field", "Logo");
+
+      const res = await fetch(
+        "http://localhost:1338/api/upload",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (res.ok) {
+        const uploaded = await res.json();
+        setLogoUrl(uploaded);
+        alert("Logo caricato con successo.");
+      } else {
+        console.error("Errore nell’upload:", await res.text());
+      }
+    } catch (err) {
+      console.error("Errore imprevisto:", err);
     }
 
-    // Ricarica l’URL completo del logo
-    const newLogoUrl = uploaded[0].url.startsWith("http")
-      ? uploaded[0].url
-      : `http://localhost:1338${uploaded[0].url}`;
-    setLogoUrl(newLogoUrl);
-  } catch (err) {
-    console.error("Errore generale durante upload e aggiornamento logo:", err);
-  }
-};
+  };
 
 
   if (loading) return <div>Caricamento...</div>;
@@ -185,8 +181,8 @@ const ProfiloAzienda: React.FC = () => {
         <nav className="nav">
           <ul>
             <li><Link className="no-style-link" to="/dashboard-azienda">Dashboard</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-azienda/profilo-azienda">Profilo</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-azienda/materiale-formativo">Materiale Formativi Aziendali</Link></li>
+            <li><Link className="no-style-link active" to="/dashboard-azienda/profilo-azienda">Profilo</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-azienda/materiale-formativo">Materiali Formativi</Link></li>
             <li><Link className="no-style-link" to="/dashboard-azienda/offerte">Gestione Posizioni</Link></li>
             <li><Link className="no-style-link" to="/dashboard-azienda/colloqui">Colloqui</Link></li>
             <li><Link className="no-style-link" to="/dashboard-azienda/candidature-ricevute">Candidature Ricevute</Link></li>
@@ -199,13 +195,39 @@ const ProfiloAzienda: React.FC = () => {
         <h2>Il tuo profilo</h2>
 
         <div className="profilo-dettaglio">
+         
           <strong>Logo:</strong><br />
-          {logoUrl ? <img src={logoUrl} alt="Logo Azienda" className="logo-img" /> : "Non caricato"}
-          <input type="file" accept="image/*" onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (file) handleUploadLogo(file);
-          }} />
+
+          {logoUrl.length > 0 ? (
+            <div className="cv-link">
+              <button
+                className="primary-button"
+                onClick={() =>
+                  window.open(
+                    logoUrl[0].url.startsWith("http") ? logoUrl[0].url : `http://localhost:1338${logoUrl[0].url}`,
+                    "_blank",
+                    "noopener,noreferrer"
+                  )
+                }
+              >
+                Visualizza Logo
+              </button>
+            </div>
+          ) : (
+            <div>Non caricato</div>
+          )}
+
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) handleUploadLogo(file);
+            }}
+          />
         </div>
+
 
         <div className="profilo-riga">
           <div className="profilo-dettaglio"><strong>Nome Azienda:</strong> {azienda?.NomeAzienda}</div>
@@ -226,6 +248,7 @@ const ProfiloAzienda: React.FC = () => {
               <textarea
                 value={cultura}
                 onChange={handleCulturaChange}
+                rows={5}
               />
               <br />
               <button className="salva-btn" onClick={handleSalvaCultura}>Salva</button>
@@ -245,6 +268,7 @@ const ProfiloAzienda: React.FC = () => {
               <textarea
                 value={descrizione}
                 onChange={handleDescrizioneChange}
+                rows={5}
               />
               <br />
               <button className="salva-btn" onClick={handleSalvaDescrizione}>Salva</button>

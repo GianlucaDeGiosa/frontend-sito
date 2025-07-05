@@ -36,12 +36,13 @@ const Home = () => {
 
         <div className="home-card left-align">
           <div className="icon">🏢</div>
-          <h3 className="card-title-center">Per le Aziende e Team Recruiting</h3>
+          <h3 className="card-title-center">Per le Aziende</h3>
           <ul>
             <li>Pubblica offerte di lavoro dettagliate</li>
-            <li>Cerca candidati qualificati nel database</li>
+            <li>Ottieni candidati compatibili per ogni offerta lavorativa</li>
             <li>Fornisci materiale formativo per i candidati</li>
             <li>Comunica la tua cultura aziendale</li>
+            <li>Fornisci feedback alle candidature dei candidati</li>
           </ul>
           <button onClick={() => navigate("/register?role=company")}>Area Aziende</button>
         </div>

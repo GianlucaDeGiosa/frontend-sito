@@ -4,46 +4,12 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.aside-header {
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.aside-title {
-  font-size: 1.25rem;
-  color: #ffffff;
-  margin: 0;
-}
-
-.aside-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.aside-nav li {
-  margin-bottom: 1rem;
-}
-
-.aside-link {
-  text-decoration: none;
-  color: #adb5bd;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  display: block;
-  border-radius: 4px;
-  transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
-}
-
-.aside-link:hover {
-  background-color: #495057;
-  color: #ffffff;
-}
-
-.aside-link.active {
-  background-color: #495057;
-  color: #ffffff;
-  font-weight: bold;
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #343a40;
+  color: white;
+  padding: 2rem 1rem;
 }
 
 .logo {
@@ -67,9 +33,10 @@
   font-size: 1rem;
 }
 
+.no-style-link:hover,
 .no-style-link.active {
   font-weight: bold;
-  text-decoration: underline;
+  color: #f8f9fa;
 }
 
 .main-content {

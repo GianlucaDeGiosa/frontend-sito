@@ -25,7 +25,6 @@ const MaterialeFormativo = () => {
     const fetchUserData = React.useCallback(async () => {
         if (!jwt) return;
         try {
-            // const res = await fetch(`https://lovable-horses-1f1c111d86.strapiapp.com/api/users/me?populate=azienda`, {
             const res = await fetch(`http://localhost:1338/api/users/me?populate=azienda`, {
                 headers: {
                     Authorization: `Bearer ${jwt}`,
@@ -42,7 +41,6 @@ const MaterialeFormativo = () => {
         if (!aziendaId) return;
         try {
             const res = await fetch(
-                // `https://lovable-horses-1f1c111d86.strapiapp.com/api/materiale-formativos?filters[azienda][documentId][$eq]=${aziendaId}&populate=*`,
                 `http://localhost:1338/api/materiale-formativos?filters[azienda][documentId][$eq]=${aziendaId}&populate=*`,
                 {
                     headers: {
@@ -77,7 +75,7 @@ const MaterialeFormativo = () => {
                 const fileData = new FormData();
                 fileData.append('files', file);
 
-                //const uploadRes = await fetch("https://lovable-horses-1f1c111d86.strapiapp.com/api/upload", {
+                //const uploadRes = await fetch("http://localhost:1338/api/upload", {
                 const uploadRes = await fetch("http://localhost:1338/api/upload", {
                     method: "POST",
                     headers: {
@@ -90,7 +88,7 @@ const MaterialeFormativo = () => {
                 fileId = uploadResult[0]?.id;
             }
 
-            const res = await fetch(/*"https://lovable-horses-1f1c111d86.strapiapp.com/api/materiale-formativos"*/"http://localhost:1338/api/materiale-formativos", {
+            const res = await fetch("http://localhost:1338/api/materiale-formativos", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -134,7 +132,7 @@ const MaterialeFormativo = () => {
 
         try {
             setCaricamento(true);
-            const res = await fetch(/*`https://lovable-horses-1f1c111d86.strapiapp.com/api/materiale-formativos/${id}`*/`http://localhost:1338/api/materiale-formativos/${id}`, {
+            const res = await fetch(`http://localhost:1338/api/materiale-formativos/${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${jwt}`,
@@ -165,19 +163,19 @@ const MaterialeFormativo = () => {
     return (
         <div className="materiale-formativo">
             <aside className="sidebar">
-        <h2 className="logo" style={{ margin: 0 }}>{userData?.azienda?.NomeAzienda || "Utente"}</h2>
-        <nav className="nav">
-          <ul>
-            <li><Link className="no-style-link" to="/dashboard-azienda">Dashboard</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-azienda/profilo-azienda">Profilo</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-azienda/materiale-formativo">Materiale Formativi Aziendali</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-azienda/offerte">Gestione Posizioni</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-azienda/colloqui">Colloqui</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-azienda/candidature-ricevute">Candidature Ricevute</Link></li>
-          </ul>
+                <h2 className="logo" style={{ margin: 0 }}>{userData?.azienda?.NomeAzienda || "Utente"}</h2>
+                <nav className="nav">
+                    <ul>
+                        <li><Link className="no-style-link" to="/dashboard-azienda">Dashboard</Link></li>
+                        <li><Link className="no-style-link" to="/dashboard-azienda/profilo-azienda">Profilo</Link></li>
+                        <li><Link className="no-style-link active" to="/dashboard-azienda/materiale-formativo">Materiali Formativi</Link></li>
+                        <li><Link className="no-style-link" to="/dashboard-azienda/offerte">Gestione Posizioni</Link></li>
+                        <li><Link className="no-style-link" to="/dashboard-azienda/colloqui">Colloqui</Link></li>
+                        <li><Link className="no-style-link" to="/dashboard-azienda/candidature-ricevute">Candidature Ricevute</Link></li>
+                    </ul>
 
-        </nav>
-      </aside>
+                </nav>
+            </aside>
 
             <main className="main-content">
                 <div className="materiale-form">
@@ -252,13 +250,12 @@ const MaterialeFormativo = () => {
                                         <p>{mat.Descrizione || 'Nessuna descrizione'}</p>
 
                                         {fileUrl && (
-                                            <a
-                                                href={fileUrl}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
+                                            <button
+                                                className="primary-button"
+                                                onClick={() => window.open(`http://localhost:1338${fileUrl}`, "_blank", "noopener,noreferrer")}
                                             >
                                                 Scarica file
-                                            </a>
+                                            </button>
                                         )}
 
                                         <div className="text-sm">

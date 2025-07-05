@@ -1,3 +1,46 @@
+.admin-dashboard {
+  display: flex;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f6f8;
+  color: #333;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #343a40;
+  color: white;
+  padding: 2rem 1rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.nav li {
+  margin-bottom: 1rem;
+}
+
+.no-style-link {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+}
+
+.no-style-link:hover,
+.no-style-link.active {
+  font-weight: bold;
+  color: #f8f9fa;
+}
+
 /* Barra ricerca e filtri */
 .filtri-ricerca {
   margin-bottom: 2rem;

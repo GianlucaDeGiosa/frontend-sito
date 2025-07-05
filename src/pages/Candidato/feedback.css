@@ -1,4 +1,4 @@
-.materiale-formativo {
+.feedback {
   display: flex;
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -37,7 +37,6 @@
 .no-style-link:hover,
 .no-style-link.active {
   font-weight: bold;
-  text-decoration: underline;
   color: #f8f9fa;
 }
 

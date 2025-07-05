@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./OfferteSuggerite.css";
+import "./OfferteLavoro.css";
 import { Link } from "react-router-dom";
 
 type Benefit = { Nome: string };
@@ -18,12 +18,13 @@ type Offerta = {
 };
 
 
-const OfferteSuggerite: React.FC = () => {
+const OfferteLavoro: React.FC = () => {
   const [offerte, setOfferte] = useState<Offerta[]>([]);
   const [loading, setLoading] = useState(true);
   const [errore, setErrore] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [editingOfferta, setEditingOfferta] = useState<Offerta | null>(null);
+  const [candidatoInfo, setCandidatoInfo] = useState<{ Nome: string; Cognome: string } | null>(null);
 
   // Funzioni per gestire l'apertura/chiusura form e i campi
   const handleOpenForm = (offerta: Offerta) => {
@@ -45,7 +46,7 @@ const OfferteSuggerite: React.FC = () => {
   const [preferiti, setPreferiti] = useState<number[]>([]);
 
   const jwt = localStorage.getItem("jwt");
-  const candidatoId = localStorage.getItem("userId");
+  const candidatoId = localStorage.getItem("candidatoId");
 
   useEffect(() => {
     if (!jwt || !candidatoId) {
@@ -93,7 +94,30 @@ const OfferteSuggerite: React.FC = () => {
       }
     };
 
+    const fetchCandidato = async () => {
+      try {
+        const res = await fetch(`http://localhost:1338/api/candidatoes/${candidatoId}`, {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error("Errore nel recupero dati candidato");
+        }
+
+        const data = await res.json();
+        const { Nome, Cognome } = data.data;
+        setCandidatoInfo({ Nome, Cognome });
+        console.log("Dati candidato:", data.data);
+      } catch (err: any) {
+        console.error("Errore caricamento candidato:", err);
+        setErrore("Errore nel caricamento del candidato");
+      }
+    };
+
     fetchOfferte();
+    fetchCandidato();
 
     const salvati = JSON.parse(localStorage.getItem("preferitiOfferte") || "[]");
     setPreferiti(salvati);
@@ -111,11 +135,17 @@ const OfferteSuggerite: React.FC = () => {
   };
 
   const handleCandidatura = async (offertaId: number, candidatoId: string) => {
+    const offerta = offerte.find((o) => o.id === offertaId);
+    if (!offerta || !candidatoInfo) {
+      alert("Impossibile candidarsi: dati mancanti");
+      return;
+    }
+
     const payload = {
       data: {
-        offerta_lavoro: parseInt(offertaId.toString()),
-        candidato: parseInt(candidatoId)
-      }
+        offerta_lavoro: offertaId,
+        candidato: parseInt(candidatoId),
+      },
     };
 
     try {
@@ -134,12 +164,13 @@ const OfferteSuggerite: React.FC = () => {
 
       if (!res.ok) throw new Error(responseText);
 
-      alert(`Candidatura inviata con successo per l'offerta ID: ${offertaId}`);
+      alert(`Candidatura inviata con successo per l'offerta "${offerta.Titolo}"`);
     } catch (err) {
       console.error("Errore durante l'invio:", err);
       alert("Errore durante l'invio della candidatura");
     }
   };
+
 
 
 
@@ -183,8 +214,7 @@ const OfferteSuggerite: React.FC = () => {
             <li><Link className="no-style-link" to="/dashboard-candidato">Dashboard</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/profilo-candidato">Profilo</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/competenze-candidato">Competenze</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/preferenze">Attitudini e Preferenze</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/offerte-suggerite">Offerte di Lavoro</Link></li>
+            <li><Link className="no-style-link active" to="/dashboard-candidato/offerte-lavoro">Offerte di Lavoro</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/colloqui">Colloqui</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/feedback">Feedback Ricevuti</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/materiale-formativo">Materiali Formativi</Link></li>
@@ -344,4 +374,4 @@ const OfferteSuggerite: React.FC = () => {
   );
 };
 
-export default OfferteSuggerite;
+export default OfferteLavoro;

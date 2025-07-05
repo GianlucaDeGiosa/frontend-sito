@@ -18,7 +18,7 @@ const CompetenzeCandidato = () => {
         const fetchDatiCandidato = async () => {
             try {
                 const res = await fetch(
-                    //`https://lovable-horses-1f1c111d86.strapiapp.com/api/users/${documentId}?populate[candidato][populate]=competenzas`,
+                    //`http://localhost:1338/api/users/${documentId}?populate[candidato][populate]=competenzas`,
                     `http://localhost:1338/api/users/${documentId}?populate[candidato][populate]=competenzas`,
                     {
                         headers: { Authorization: `Bearer ${jwt}` },
@@ -49,7 +49,7 @@ const CompetenzeCandidato = () => {
 
         try {
             const res = await fetch(
-                //`https://lovable-horses-1f1c111d86.strapiapp.com/api/competenzas`,
+                //`http://localhost:1338/api/competenzas`,
                 `http://localhost:1338/api/competenzas`,
                 {
                     method: "POST",
@@ -60,7 +60,7 @@ const CompetenzeCandidato = () => {
                     body: JSON.stringify({
                         data: {
                             ...form,
-                            candidato: candidato.id,
+                            candidatoes: candidato.id,
                         },
                     }),
                 }
@@ -104,7 +104,6 @@ const CompetenzeCandidato = () => {
 
         try {
             const res = await fetch(
-                //`https://lovable-horses-1f1c111d86.strapiapp.com/api/competenzas/${editingId}?publicationState=preview`,
                 `http://localhost:1338/api/competenzas/${editingId}?publicationState=preview`,
                 {
                     method: "PUT",
@@ -137,8 +136,6 @@ const CompetenzeCandidato = () => {
             console.error("Errore:", err);
         }
         console.log("Aggiorno ID:", editingId);
-        //console.log("URL:", `https://lovable-horses-1f1c111d86.strapiapp.com/api/competenzas/${editingId}`);
-        console.log("URL:", `http://localhost:1338/api/competenzas/${editingId}`);
     };
 
     //Funzione per eliminare una competenza
@@ -147,7 +144,6 @@ const CompetenzeCandidato = () => {
 
         try {
             const deleteRes = await fetch(
-                //`https://lovable-horses-1f1c111d86.strapiapp.com/api/competenzas/${competenzaId}`,
                 `http://localhost:1338/api/competenzas/${competenzaId}`,
                 {
                     method: "DELETE",
@@ -179,9 +175,8 @@ const CompetenzeCandidato = () => {
           <ul>
             <li><Link className="no-style-link" to="/dashboard-candidato">Dashboard</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/profilo-candidato">Profilo</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/competenze-candidato">Competenze</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/preferenze">Attitudini e Preferenze</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/offerte-suggerite">Offerte di Lavoro</Link></li>
+            <li><Link className="no-style-link active" to="/dashboard-candidato/competenze-candidato">Competenze</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/offerte-lavoro">Offerte di Lavoro</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/colloqui">Colloqui</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/feedback">Feedback Ricevuti</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/materiale-formativo">Materiali Formativi</Link></li>
@@ -247,8 +242,8 @@ const CompetenzeCandidato = () => {
                                         <option value="Intermedio">Intermedio</option>
                                         <option value="Esperto">Esperto</option>
                                     </select>
-                                    <button type="submit">Salva</button>
-                                    <button type="button" onClick={() => setEditingId(null)}>
+                                    <button className="primary-button" type="submit">Salva</button>
+                                    <button className="primary-button" type="button" onClick={() => setEditingId(null)}>
                                         Annulla
                                     </button>
 
@@ -258,8 +253,8 @@ const CompetenzeCandidato = () => {
                                     <span>
                                         {c.Nome} - {c.Categoria} ({c.Livello})
                                     </span>
-                                    <button onClick={() => startEditing(c)}>Modifica</button>
-                                    <button onClick={() => handleDelete(c.id)}>Elimina</button>
+                                    <button className="primary-button" onClick={() => startEditing(c)}>Modifica</button>
+                                    <button className="primary-button" onClick={() => handleDelete(c.id)}>Elimina</button>
                                 </>
                             )}
                         </li>

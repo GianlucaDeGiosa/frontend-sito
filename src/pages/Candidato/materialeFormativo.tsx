@@ -11,11 +11,10 @@ const VisualizzaMaterialeFormativo = () => {
 
   const jwt = localStorage.getItem("jwt");
 
-const fetchMateriali = React.useCallback(async () => {
+  const fetchMateriali = React.useCallback(async () => {
     try {
       const res = await fetch(
-        // `https://lovable-horses-1f1c111d86.strapiapp.com/api/materiale-formativos?filters[Pubblico][$eq]=true&populate=File`,
-        `http://localhost:1338/api/materiale-formativos?filters[Pubblico][$eq]=true&populate=File`,
+        `http://localhost:1338/api/materiale-formativos?filters[Pubblico][$eq]=true&populate=File&[azienda]=*`,
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
@@ -32,10 +31,10 @@ const fetchMateriali = React.useCallback(async () => {
   }, [jwt]);
 
 
-const fetchAziende = React.useCallback(async () => {
+  const fetchAziende = React.useCallback(async () => {
     try {
       const res = await fetch(
-        // `https://lovable-horses-1f1c111d86.strapiapp.com/api/aziendas`,
+        // `http://localhost:1338/api/aziendas`,
         `http://localhost:1338/api/aziendas`,
         {
           headers: {
@@ -43,12 +42,14 @@ const fetchAziende = React.useCallback(async () => {
           },
         }
       );
-      const data = await res.json();
-      setAziende(data.data);
+      const aziende = await res.json();
+      setAziende(aziende.data);
     } catch (err) {
       console.error("Errore fetch aziende:", err);
     }
   }, [jwt]);
+
+  console.log("Aziende:", aziende);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
@@ -70,12 +71,16 @@ const fetchAziende = React.useCallback(async () => {
   };
 
   const materialiConAzienda = materiali.map((mat) => {
-    const azienda = aziende.find((a) => a.id === mat.azienda) || null;
-    return {
-      ...mat,
-      aziendaNome: azienda?.attributes?.NomeAzienda || "Sconosciuta",
-    };
-  });
+  const aziendaNome = mat.azienda?.NomeAzienda || "Sconosciuta";
+
+  return {
+    ...mat,
+    aziendaNome
+  };
+});
+
+
+
 
   const materialiFiltrati = materialiConAzienda.filter((mat) => {
     const titolo = mat.Titolo?.toLowerCase() || "";
@@ -92,18 +97,17 @@ const fetchAziende = React.useCallback(async () => {
 
   return (
     <div className="materiale-formativo">
-    <aside className="sidebar">
+      <aside className="sidebar">
         <h2 className="logo">BugBusters</h2>
         <nav className="nav">
           <ul>
             <li><Link className="no-style-link" to="/dashboard-candidato">Dashboard</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/profilo-candidato">Profilo</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/competenze-candidato">Competenze</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/preferenze">Attitudini e Preferenze</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/offerte">Offerte Lavorative</Link></li>
+            <li><Link className="no-style-link" to="/dashboard-candidato/offerte-lavoro">Offerte di Lavoro</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/colloqui">Colloqui</Link></li>
             <li><Link className="no-style-link" to="/dashboard-candidato/feedback">Feedback Ricevuti</Link></li>
-            <li><Link className="no-style-link" to="/dashboard-candidato/materiale-formativo">Materiali Formativi</Link></li>
+            <li><Link className="no-style-link active" to="/dashboard-candidato/materiale-formativo">Materiali Formativi</Link></li>
           </ul>
         </nav>
       </aside>
@@ -134,9 +138,12 @@ const fetchAziende = React.useCallback(async () => {
                     <p>{mat.Descrizione || "Nessuna descrizione"}</p>
                     <p><strong>Azienda:</strong> {mat.aziendaNome}</p>
                     {fileUrl && (
-                      <a href={fileUrl} target="_blank" rel="noopener noreferrer">
+                      <button
+                        className="download-button"
+                        onClick={() => window.open(`http://localhost:1338${fileUrl}`, "_blank", "noopener,noreferrer")}
+                      >
                         Scarica file
-                      </a>
+                      </button>
                     )}
                     <button onClick={() => togglePreferito(mat.id)}>
                       {preferiti.includes(mat.id) ? "Rimuovi dai preferiti" : "Salva nei preferiti"}
